@@ -1,0 +1,42 @@
+.input_text_container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.input_text_icon_container{
+    position: absolute;
+    transform: translateX(10px);
+}
+
+.input_text_login{
+    width: 100%;
+    padding: 1rem 2.3rem;
+    border-radius: 10px;
+    border: solid 1px var(--Color2);
+    box-shadow: 3px 4px 7px rgba(0, 168, 195, 0.3);
+    color: #63666C;
+    font-size: 1rem;
+}
+
+.input_text_login:focus{
+    border: solid 1px var(--Color2);
+    outline: none;
+}
+
+.svg_password{
+    color: #94A3B8;
+    size: 20px;
+}
+
+/*
+//====================
+//  Responsive
+//====================
+*/
+@media screen and (max-width:1300px) {
+    .input_text_login{
+        padding: 0.8rem 2.3rem;
+    }
+}

@@ -1,0 +1,88 @@
+.login_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.title_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.subtitle_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.form_login_description{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.form_login_description hr{
+    flex-grow: 1;
+    border: none;     
+    border-top: 1px solid #969AA1;
+}
+
+.description_login{
+    font-family: var(--Tipografia);
+    font-size: 0.75rem;
+    color: #969AA1;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.input_normal{
+    display: flex;
+    flex-direction: column;
+}
+
+.input_especial{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.link_Soporte{
+    font-family: var(--Tipografia);
+    font-size: 1rem;
+    color: var(--Color2);
+    text-decoration: none;
+}
+
+/*
+//====================
+//  Responsive
+//====================
+*/
+@media screen and (max-width:1300px) {
+    .title_form_login{
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .login_container{
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width:780px) {
+    .title_form_login{
+       font-size: 1.5rem;
+    }
+}

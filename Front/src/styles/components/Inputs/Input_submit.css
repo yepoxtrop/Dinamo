@@ -1,0 +1,14 @@
+.input_submit_login{
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 15px;
+    font-family: var(--Tipografia);
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: var(--Color2);
+    border: solid 1px var(--Color2);
+    box-shadow: 3px 4px 8px rgba(0, 158, 195, 0.3);
+}

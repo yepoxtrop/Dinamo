@@ -1,0 +1,16 @@
+.input_list_container{
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    justify-content: center;
+}
+
+.input_list{
+    font-family: var(--Tipografia);
+}
+
+.label_input_list{
+    font-family: var(--Tipografia);
+    color: var(--Color1);
+    font-size: 1rem;
+}

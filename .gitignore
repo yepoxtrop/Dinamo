@@ -1,0 +1,11 @@
+#Carpetas
+REGISTRO_LOGS/
+FIRMAS_USUARIOS/
+Documentacion/
+**/venv/
+**/node_modules/
+**/__pycache__/
+
+#Archivos
+**/.env
+MOCKUPS.epgz

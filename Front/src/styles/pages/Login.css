@@ -1,0 +1,112 @@
+.login_body{
+    background-color: rgb(246, 248, 251);
+    width: 100%;
+    height: 100vh;
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen_login_container{
+    width: 60%;
+    height: 100%;
+    background-color: red;
+    border-radius: 1rem;
+    box-shadow: 2px 5px 40px rgba(0, 0, 0, 0.3);
+}
+
+.form_login_container{
+    flex-grow: 1;
+    padding:  20px 60px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 2px 5px 40px rgba(0, 0, 0, 0.3);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(15,23,42,0.04);
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-between;
+    gap: 8rem;
+}
+
+.title_form_login{
+    font-family: var(--Tipografia);
+    font-style: italic;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--Color1);
+}
+
+.description_form_login{
+    text-align: center;
+    font-size: 12px;
+    font-family: var(--Tipografia);
+    font-style: normal;
+    color: rgb(150, 154, 161);
+}
+
+/*
+//====================
+//  Responsive
+//====================
+*/
+
+@media screen and (max-width:1650px) {
+    .imagen_login_container{
+        width: 55%;
+    }
+}
+
+@media screen and (max-width:1390px) {
+    .imagen_login_container{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:1300px) {
+    .form_login_container{
+        padding: 20px 25px;
+    }
+    
+    .form_login_container{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width:1130px) {
+    
+    .form_login_container{
+        width: 60%;
+        flex-grow: 0;
+    }
+}
+
+
+@media screen and (max-width:1130px) {
+    .imagen_login_container{
+        display: none;
+    }
+}
+
+@media screen and (max-height:900px) {
+    .form_login_container{
+        gap: 6rem;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .form_login_container{
+        gap: 4rem;
+        width: 70%;
+    }
+
+    .login_container{
+        gap: 1rem;
+    }
+}

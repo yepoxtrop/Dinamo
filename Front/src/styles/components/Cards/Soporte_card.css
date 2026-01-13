@@ -1,0 +1,111 @@
+.conteiner_card{
+    display: flex;
+    flex-direction: column;
+    background-color: #EBEBEB;
+    padding: 8px 13px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 20px rgba(0,0,0,0.25);
+    gap: 1rem;
+}
+
+.header_card{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.icon_acs{
+    background-color: var(--Color2);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.icon_neps{
+    background-color: var(--Color1);
+    padding: 5px 12px;
+    border-radius: 10px;
+}
+
+.header_card_info{
+    display: flex;
+    flex-direction: column;
+}
+
+.title_header{
+    font-family: var(--Tipografia);
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--Color1);
+}
+
+.subtitle_header{
+    font-family: var(--Tipografia);
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.descriptrion_header_card{
+    width: 100%;
+}
+
+.descriptrion_header{
+    font-family: var(--Tipografia);
+    font-size: 0.8rem;
+    color: #64748B;
+    margin-top: 5px;
+    word-wrap: break-word; 
+    width: 100%; /* Ocupa todo el ancho disponible dentro de header_card_info */
+  overflow-wrap: break-word; /* Rompe palabras largas si es necesario */
+  word-wrap: break-word;     /* Compatibilidad antigua */
+  hyphens: auto;   
+}
+
+.container_footer_card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.info_footer{
+    font-family: var(--Tipografia);
+    font-size: 0.8rem;
+    color: #64748B;
+}
+
+.btn_icon_mail_acs, .btn_icon_phone_acs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 10px;
+    border: solid 2px var(--Color2);
+    border-radius: 5px;
+    cursor:pointer; 
+    background-color: white;
+}
+
+.icon_mail_acs, .icon_phone_acs{
+    color: var(--Color1); 
+    width: 15px;
+    height: 15px;
+}
+
+.btn_icon_mail_neps, .btn_icon_phone_neps{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 10px;
+    border: solid 2px var(--Color1);
+    border-radius: 5px;
+    cursor:pointer; 
+    background-color: white;
+}
+
+.icon_mail_neps, .icon_phone_neps{
+    color: var(--Color1); 
+    width: 15px;
+    height: 15px;
+}
