@@ -110,3 +110,55 @@
         gap: 1rem;
     }
 }
+
+@media screen and (max-width:730px) {
+    .description_form_login{
+        font-size: 0.6rem;
+    }
+
+    .form_login_container{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .form_login_container{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .form_login_container{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .title_form_login{
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .login_body{
+        padding: 50px;
+    }
+}
+
+@media screen and (max-width:490px) {
+    .login_body{
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width:420px) {
+    .form_login_container{
+        padding: 20px 19px;
+    }
+}
+
+@media screen and (max-width:410px) {
+    .title_form_login{
+        font-size: 1.3rem;
+    }
+}

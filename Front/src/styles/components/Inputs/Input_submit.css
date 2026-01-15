@@ -12,3 +12,14 @@
     border: solid 1px var(--Color2);
     box-shadow: 3px 4px 8px rgba(0, 158, 195, 0.3);
 }
+
+/*
+//====================
+//  Responsive
+//====================
+*/
+@media screen and (max-width:730px) {
+    .input_submit_login{
+        font-size: 0.9rem;
+    }
+}

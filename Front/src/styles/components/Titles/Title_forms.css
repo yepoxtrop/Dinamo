@@ -75,3 +75,41 @@
         height: 3.4rem;
     }
 }
+
+@media screen and (max-width:540px) {
+    .title_form{
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .acs_svg{
+        width: 4.4rem;
+        height: 2.8rem;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .title_form_container{
+        gap: 1px;
+    }
+}
+
+@media screen and (max-width:410px) {
+    .acs_svg{
+        width: 4rem;
+        height: 2.4rem;
+    }
+}
+
+@media screen and (max-width:410px) {
+    .title_form{
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width:380px) {
+    .title_form{
+        font-size: 1.5rem;
+    }
+}

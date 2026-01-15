@@ -14,3 +14,15 @@
     color: var(--Color1);
     font-size: 1rem;
 }
+
+/*
+//====================
+//  Responsive
+//====================
+*/
+
+@media screen and (max-width:730px) {
+    .label_input_list{
+        font-size: 0.8rem;
+    }
+}

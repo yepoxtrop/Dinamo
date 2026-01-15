@@ -86,3 +86,13 @@
        font-size: 1.5rem;
     }
 }
+
+@media screen and (max-width:730px) {
+    .description_login{
+        font-size: 0.6rem;
+    }
+
+    .link_Soporte{
+        font-size: 0.8rem;
+    }
+}
