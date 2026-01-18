@@ -5,7 +5,7 @@ import axios from "axios";
 //--Variables de dominio
 import { ruta_api_python } from "./variables_api_python.js";
 
-export const archivos_usuario_py = async (datos, token) =>{
+export const carpetaUsuarioPy = async (datos, token) =>{
     try {
         let consulta = await axios.post(
             `${ruta_api_python}/Carpeta_Usuario`,

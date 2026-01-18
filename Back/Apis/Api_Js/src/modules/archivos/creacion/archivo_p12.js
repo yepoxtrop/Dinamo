@@ -5,12 +5,14 @@ import forge from "node-forge";
 import path from "path";
 import fs from "fs"; 
 
-export async function archivo_p12(datos, llave_privada, certificado, ruta) {
+export async function archivoP12(datos, ruta) {
     try {
+        let ruta_archivo_key = path.join(ruta,`${datos.cedula}.key`);
+        let ruta_archivo_crt = path.join(ruta,`${datos.cedula}.crt`);
         let ruta_firma = path.join(ruta,`${datos.cedula}.p12`); 
                 
         let archivo_key = await fs.promises.readFile(
-            llave_privada,
+            ruta_archivo_key,
             {
                 encoding:'utf-8',
                 flag:'r'
@@ -18,18 +20,18 @@ export async function archivo_p12(datos, llave_privada, certificado, ruta) {
         )
 
         let archivo_crt = await fs.promises.readFile(
-            certificado,
+            ruta_archivo_crt,
             {
                 encoding:'utf-8',
                 flag:'r'
             }
         )
 
-        let llave_privada_decodificada = forge.pki.privateKeyFromPem(archivo_key); 
+        let ruta_archivo_key_decodificada = forge.pki.privateKeyFromPem(archivo_key); 
         let certificado_decodificado = forge.pki.certificateFromPem(archivo_crt); 
 
         let firma_digital = forge.pkcs12.toPkcs12Asn1(
-            llave_privada_decodificada,
+            ruta_archivo_key_decodificada,
             certificado_decodificado,
             datos.contrasena,
             {

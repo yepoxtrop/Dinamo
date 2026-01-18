@@ -2,16 +2,16 @@
 import { config } from "dotenv";
 
 //Configuraciones Hechas
-import { transportador } from "../../config/correo/config.correo.js";
+import { transportadorCorreo } from "../../settings/correo/transportadorCorreo.js";
 
 //Objetos Creados
-import { supervisores } from "../../settings/objetos/supervisores.js";
+//import { supervisores } from "../../settings/objetos/supervisores.js";
 
-export async function correo_supervisor(datos) {
+export async function correoSupervisor(datos) {
     try {
-        let correo = await transportador.sendMail({
-            from:`"FIRMAS ACS" <${transportador.options.auth.user}>`,
-            to:supervisores[datos.supervisor].correo,
+        let correo = await transportadorCorreo.sendMail({
+            from:`"FIRMAS ACS" <${transportadorCorreo.options.auth.user}>`,
+            to:"pruebas.neo2006@gmail.com",
             subject:"Correo de confirmación de firmas",
             html:`
                     <table style="background-color:rgb(0, 168, 195);width:100%;" border="0">

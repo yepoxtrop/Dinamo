@@ -5,7 +5,7 @@ import forge from "node-forge";
 import path from "path";
 import fs from "fs"; 
 
-export const archivo_key = async (datos, ruta) => { 
+export const archivoKeys = async (datos, ruta) => { 
     try {
         
         let clave = forge.pki.rsa.generateKeyPair({

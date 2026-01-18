@@ -5,7 +5,7 @@ import axios from "axios";
 //--Variables de dominio
 import { ruta_api_python } from "./variables_api_python.js";
 
-export const archivos_usuario_py = async (datos, token) =>{
+export const archivosUsuarioPy = async (datos, token) =>{
     try {
         let consulta = await axios.post(
             `${ruta_api_python}/Ficheros_Usuario`,
@@ -16,7 +16,6 @@ export const archivos_usuario_py = async (datos, token) =>{
                 }
             }
         );
-        console.log(consulta.data)
         return {
             "Mensaje":"Peticion completada",
             "Estado":true,
@@ -31,12 +30,3 @@ export const archivos_usuario_py = async (datos, token) =>{
         }
     }
 }
-
-archivos_usuario_py(
-    {
-        "nombre_usuario":"alexander.ramirez",
-        "nombre":"Alezander Ramirez",
-        "cedula":1023373788
-    },
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlX3VzdWFyaW8iOiJsdWlzLnNhcm1pZW50byIsInNlbGYuX25vbWJyZV9yZWFsIjoiTHVpcyBBbmdlbCBTYXJtaWVudG8gRGlheiIsInJvbCI6IkFETUlOSVNUUkFET1IiLCJleHAiOjE3Njc3MjQzNTAsImlhdCI6MTc2NzcyMDc1MH0.l9vubyZlZloSEdZJ-DuxVJjMANREkwIN9RvpVR05D9c"
-)

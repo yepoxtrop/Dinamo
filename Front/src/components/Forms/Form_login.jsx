@@ -1,6 +1,8 @@
 //Librerias
 //--react
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 //Componentes
 import Label from '../Labels/Label.jsx';
@@ -14,6 +16,22 @@ import Title_forms from '../Titles/Title_forms.jsx';
 import '../../styles/components/Forms/Form_login.css';
 
 const Form_login = () => {
+
+  const [datos, set_datos] = useState({usuario:'', contrasena:''})
+  
+  const enviar_form = (event) =>{
+    event.preventDefault();
+    console.log(datos)
+  }
+
+  const actualizar_campos = (event) =>{
+    console.log(event.target.value)
+  }
+
+  useEffect(()=>{
+    console.log(datos)
+  },[datos])
+
   return (
     <div className='login_container'>
         <div className='title_container'>
@@ -32,15 +50,20 @@ const Form_login = () => {
 
         
 
-        <form className='login'>
+        <form className='login' onSubmit={enviar_form}>
             <div className='input_normal'>
               <Label datos={{valor:"Usuario",for_input:"usuario"}}/>
-              <Input_text datos={{tipo:"text", icon:"usuario", nombre:"usuario", maximo:45, minimo:4, ejemplo:"tony.chopper"}}/>  
+              <Input_text 
+                datos={{tipo:"text", icon:"usuario", nombre:"usuario", maximo:45, minimo:4, ejemplo:"tony.chopper"}}
+                funcion_onchange={actualizar_campos}
+              />  
             </div>
             
             <div className='input_normal'>
               <Label datos={{valor:"Contraseña",for_input:"contrasena"}}/>
-              <Input_password datos={{nombre:"usuario", maximo:25, minimo:4, ejemplo:"**********"}}/>
+              <Input_password 
+                datos={{nombre:"contrasena", maximo:25, minimo:4, ejemplo:"**********"}}
+              />
             </div>
 
             <div className='input_especial'>

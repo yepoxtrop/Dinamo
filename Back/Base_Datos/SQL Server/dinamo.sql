@@ -1,13 +1,17 @@
 /*
 //====================================
 // CREACION DE LA BASE DE DATOS
+// LA MEJOR BASE DE DATOS
+// DINAMO
+// :V
 //====================================
 */
 if DB_ID('Dinamo') is null
 	create database Dinamo;
+-- drop database Dinamo
 go
 
--- drop database dinamo
+
 
 use Dinamo;
 go

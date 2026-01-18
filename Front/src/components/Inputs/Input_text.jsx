@@ -7,7 +7,7 @@ import { UserRound } from 'lucide-react';
 //Estilos
 import '../../styles/components/Inputs/Input_text.css'
 
-const Input_text = ({datos}) => {
+const Input_text = ({datos, funcion_onchange}) => {
   return (
     <>
       <div className='input_text_container'>
@@ -22,6 +22,7 @@ const Input_text = ({datos}) => {
           placeholder={datos.ejemplo==null?null:datos.ejemplo} 
           required
           className='input_text_login'
+          onChange={funcion_onchange}
         />
       </div>
     </>

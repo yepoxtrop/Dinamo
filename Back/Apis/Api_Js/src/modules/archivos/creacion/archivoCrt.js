@@ -5,14 +5,18 @@ import forge from "node-forge";
 import path from "path";
 import fs from "fs"; 
 
-export const archivo_crt = async (datos, llave_publica, llave_privada, solicitud_certificado, ruta) => {
+export const archivoCrt = async (datos, ruta) => {
     try {
+
+        let ruta_archivo_pub = path.join(ruta,`${datos.cedula}.pub`);
+        let ruta_archivo_key = path.join(ruta,`${datos.cedula}.key`);
+        let ruta_archivo_csr = path.join(ruta,`${datos.cedula}.csr`);
         let ruta_certificado = path.join(ruta,`${datos.cedula}.crt`); 
 
         let certificado = forge.pki.createCertificate();
 
         let archivo_pub = await fs.promises.readFile(
-            llave_publica,
+            ruta_archivo_pub,
             {
                 encoding:'utf-8',
                 flag:'r'
@@ -20,7 +24,7 @@ export const archivo_crt = async (datos, llave_publica, llave_privada, solicitud
         )
         
         let archivo_key = await fs.promises.readFile(
-            llave_privada,
+            ruta_archivo_key,
             {
                 encoding:'utf-8',
                 flag:'r'
@@ -28,28 +32,28 @@ export const archivo_crt = async (datos, llave_publica, llave_privada, solicitud
         )
 
         let archivo_csr = await fs.promises.readFile(
-            solicitud_certificado,
+            ruta_archivo_csr,
             {
                 encoding:'utf-8',
                 flag:'r'
             }
         )
     
-        let llave_publica_decodificada = forge.pki.publicKeyFromPem(archivo_pub); 
-        let llave_privada_decodificada = forge.pki.privateKeyFromPem(archivo_key); 
-        let solicitud_certificado_decodificada = forge.pki.certificationRequestFromPem(archivo_csr); 
+        let ruta_archivo_pub_decodificada = forge.pki.publicKeyFromPem(archivo_pub); 
+        let ruta_archivo_key_decodificada = forge.pki.privateKeyFromPem(archivo_key); 
+        let ruta_archivo_csr_decodificada = forge.pki.certificationRequestFromPem(archivo_csr); 
 
-        certificado.publicKey = llave_publica_decodificada;
+        certificado.publicKey = ruta_archivo_pub_decodificada;
         certificado.serialNumber = '01';
         certificado.validity.notBefore = new Date();
         certificado.validity.notBefore = new Date(); 
         certificado.validity.notAfter.setFullYear(certificado.validity.notBefore.getFullYear() + 1);
 
-        certificado.setSubject(solicitud_certificado_decodificada.subject.attributes);
-        certificado.setIssuer(solicitud_certificado_decodificada.subject.attributes); // Auto-firmado: issuer = subject
+        certificado.setSubject(ruta_archivo_csr_decodificada.subject.attributes);
+        certificado.setIssuer(ruta_archivo_csr_decodificada.subject.attributes); // Auto-firmado: issuer = subject
 
         //firma el certificado
-        certificado.sign(llave_privada_decodificada, forge.md.sha256.create());
+        certificado.sign(ruta_archivo_key_decodificada, forge.md.sha256.create());
 
         //Cifra el certificado
         let certificado_cifrado = forge.pki.certificateToPem(certificado);

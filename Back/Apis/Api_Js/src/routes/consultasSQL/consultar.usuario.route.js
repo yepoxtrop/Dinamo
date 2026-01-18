@@ -1,11 +1,11 @@
-//Controlador Creado
-import { controller_consultar_usuario } from "../../controllers/consultasSQL/consultar.usuario.controller.js";
+// //Controlador Creado
+// import { controller_consultar_usuario } from "../../controllers/consultasSQL/consultar.usuario.controller.js";
 
-//Librerias
-import express from "express";
+// //Librerias
+// import express from "express";
 
-let router = express.Router(); 
+// let router = express.Router(); 
 
-router.post("/consultar_usuario", controller_consultar_usuario); 
+// router.post("/consultar_usuario", controller_consultar_usuario); 
 
-export default router; 
+// export default router; 

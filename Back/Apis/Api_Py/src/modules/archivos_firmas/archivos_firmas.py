@@ -60,11 +60,13 @@ class Archivos_Firmas(object):
             if os.path.exists(ruta):
                 return Modelo_Respuesta(
                     Mensaje=f"La ruta si existe",
+                    Resultado=ruta,
                 )
             else:
                 os.makedirs(ruta, exist_ok=True) 
                 return Modelo_Respuesta(
                     Mensaje=f"La ruta fue creada",
+                    Resultado=ruta,
                 )
         except OSError as error:
             return Modelo_Errores(

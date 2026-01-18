@@ -2,15 +2,15 @@
 import { config } from "dotenv";
 
 //Configuraciones Hechas
-import { transportador } from "../../config/correo/config.correo.js";
+import { transportadorCorreo } from "../../settings/correo/transportadorCorreo.js";
 
 //Objetos Creados
-import { supervisores } from "../../settings/objetos/supervisores.js";
+//import { supervisores } from "../../settings/objetos/supervisores.js";
 
-export async function correo_usuario_fallo(datos) {
+export async function correoUsuarioFallo(datos) {
     try {
-        let correo = await transportador.sendMail({
-            from:`"FIRMAS ACS" <${transportador.options.auth.user}>`,
+        let correo = await transportadorCorreo.sendMail({
+            from:`"FIRMAS ACS" <${transportadorCorreo.options.auth.user}>`,
             to:datos.correo,
             subject:"Correo de alertas",
             html:`

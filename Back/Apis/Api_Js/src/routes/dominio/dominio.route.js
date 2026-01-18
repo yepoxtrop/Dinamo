@@ -1,11 +1,11 @@
-//Controladores Creados
-import { controller_validar_dominio } from "../../controllers/dominio/dominio.controller.js";
+// //Controladores Creados
+// import { controller_validar_dominio } from "../../controllers/dominio/dominio.controller.js";
 
-//Librerias Instaldas
-import express from "express"; 
+// //Librerias Instaldas
+// import express from "express"; 
 
-let router = express.Router();
+// let router = express.Router();
 
-router.post("/validar_dominio", controller_validar_dominio);
+// router.post("/validar_dominio", controller_validar_dominio);
 
-export default router; 
+// export default router; 

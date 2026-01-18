@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 //--configuraciones
 import { correo_host, correo_puerto, correo_seguridad, correo_usuario, correo_contrasena } from "./variables_correo.js";
 
-export const transportador = nodemailer.createTransport({
+export const transportadorCorreo = nodemailer.createTransport({
     host:correo_host,
     port:correo_puerto,
     secure:false,

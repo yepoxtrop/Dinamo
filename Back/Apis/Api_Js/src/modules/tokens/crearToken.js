@@ -24,9 +24,6 @@ export async function tokens(datos) {
                 expiresIn: "1h"
             }
         )
-
-        console.log(token)
-        
         return {
             "Mensaje":"Operaciones completadas satisfactoriamente. Token creado",
             "Estado":true,
