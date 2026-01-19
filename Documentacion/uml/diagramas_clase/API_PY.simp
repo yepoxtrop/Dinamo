@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="15.1" multi-file="no" uid="simp97f7dbd037744bfc87ee8ecb304ea44c" creation-date="12/03/2025 08:00:28">
+  <meta>
+    <name>API_PY</name>
+    <authors>Luis Angel Sarmiento Diaz</authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="class" type="Class" />
+        <value>1</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="class" type="Class" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="property" type="Property" />
+        <value>12</value>
+      </counter>
+      <counter>
+        <item-type type-id="universal-connector" type="Universal Connector" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="relationship" type="Association" />
+        <value>2</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlClassDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
+        <value>12</value>
+      </counter>
+    </fields>
+  </counters>
+  <alias-groups />
+  <management uid="md-3933f85a3b954045bff9780597f801eb" name="" task-id-sequence="0">
+    <persons>
+      <person id="">
+        <first-name>Luis Angel</first-name>
+        <last-name>Sarmiento Diaz</last-name>
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <teams />
+    <sprints />
+    <projects />
+    <modules />
+    <tasks />
+    <to-dos />
+  </management>
+  <glossary id="glsr-553e50665ac74e4e95a698c353620bc8" name="" order-index="-1" />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types>
+      <parameters />
+      <types />
+    </custom-types>
+  </types>
+  <items>
+    <item id="5cb78c15044d4ab09960b95ed8343995" cid="PROP007" type="property" name="ruta_carpeta_firmas_usuario" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:06:36" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="51eeeb22a6594a3ea314ffbd5c2afd0e" cid="C001" type="class" name="ARCHIVOS_USUARIO" creation-date="12/03/2025 08:00:32" visibility="undefined">
+      <owned-items />
+      <attributes>
+        <attribute id="ae55dc021985f41bcbf8b2110e9b1d2a2544" cid="PROP001" name="nombre_usuario" creation-date="12/03/2025 08:04:43" property-ref="e12041b0e97d4d0d8f2d77b10eaab7f5" />
+        <attribute id="a5923c5f188124e1ea6e11139d122e820734" cid="PROP002" name="nombre" creation-date="12/03/2025 08:04:48" property-ref="fdba9ec6a1f146849a7b62b76376fe84" />
+        <attribute id="a4f229102e4f7473a99bbfb359c6f9339571" cid="PROP003" name="cedula" creation-date="12/03/2025 08:05:05" property-ref="6a103f6ca17140ba87f7e28ef6447ca6" />
+        <attribute id="af3382b405bd549e287064f889a9aca75947" cid="PROP004" name="fecha" creation-date="12/03/2025 08:05:18" property-ref="83f62704c4ee4644b2e69fa6a1705356" />
+        <attribute id="aebe2f25fbb6242dfb7bd4fe7f1c622db412" cid="PROP005" name="ruta_carpeta_firmas" creation-date="12/03/2025 08:06:17" property-ref="f6e6620eac3045eea6937e48c4bc2e78" />
+        <attribute id="a3ccfda70f5e448f291884efb0c44f2ef308" cid="PROP006" name="ruta_carpeta_usuario" creation-date="12/03/2025 08:06:25" property-ref="436c1b2b2af0485abf9570d1471ae7b5" />
+        <attribute id="ad0cd307d6f70461dbc7660f47fcb3206893" cid="PROP007" name="ruta_carpeta_firmas_usuario" creation-date="12/03/2025 08:06:36" property-ref="5cb78c15044d4ab09960b95ed8343995" />
+      </attributes>
+      <operations>
+        <operation id="oe41f813abff14c5dbc112f90c844e895869" cid="OP001" name="construcutor" creation-date="12/03/2025 08:07:45" type="Object" type-id="Uml.Object" visibility="undefined">
+          <parameters>
+            <parameter id="p74a19d70b3da4524a9caaf7892194742" name="objeto" type="" type-id="" creation-date="12/03/2025 08:07:53" />
+          </parameters>
+        </operation>
+        <operation id="o30e2122f839e4c89ab7a8af80e15c22a324" cid="OP002" name="consultar_key" creation-date="12/03/2025 08:08:37" type="" type-id="" visibility="undefined" />
+        <operation id="oe1ffe2d1afc74c29987e69a520b9c927122" cid="OP003" name="consultar_request_certificate" creation-date="12/03/2025 08:08:42" type="" type-id="" visibility="undefined" />
+        <operation id="o6f94815d2e894d0baddcf33617397329541" cid="OP004" name="consultar_certificate" creation-date="12/03/2025 08:08:47" type="" type-id="" visibility="undefined" />
+        <operation id="o98efd9ef2bf744178183082843c1fddf96" cid="OP005" name="consultar_signature" creation-date="12/03/2025 08:08:51" type="" type-id="" visibility="undefined" />
+        <operation id="o561bd7278781446ebe806232885dd194753" cid="OP006" name="consultar_carpeta_firmas" creation-date="12/03/2025 08:08:54" type="" type-id="" visibility="undefined" />
+        <operation id="o446476f48d7445f48f2a4756f91b5a90165" cid="OP007" name="consultar_carpeta_firmas_usuario" creation-date="12/03/2025 08:08:58" type="" type-id="" visibility="undefined" />
+        <operation id="o9ad067c678734ba18aab3304a343856d197" cid="OP008" name="consultar_general" creation-date="12/03/2025 08:09:01" type="" type-id="" visibility="undefined" />
+        <operation id="o57495b89c2d44b94a454b30e9a01a2a7132" cid="OP009" name="getter" creation-date="12/03/2025 08:09:08" type="" type-id="" visibility="undefined" />
+      </operations>
+      <source-codes>
+        <source-code language="ActionScript" />
+      </source-codes>
+    </item>
+    <item id="f6e6620eac3045eea6937e48c4bc2e78" cid="PROP005" type="property" name="ruta_carpeta_firmas" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:06:17" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="436c1b2b2af0485abf9570d1471ae7b5" cid="PROP006" type="property" name="ruta_carpeta_usuario" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:06:25" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="e12041b0e97d4d0d8f2d77b10eaab7f5" cid="PROP001" type="property" name="nombre_usuario" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:04:43" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="83f62704c4ee4644b2e69fa6a1705356" cid="PROP004" type="property" name="fecha" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:05:18" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="fdba9ec6a1f146849a7b62b76376fe84" cid="PROP002" type="property" name="nombre" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:04:48" visibility="protected">
+      <structural-feature type="String" type-id="Uml.String" />
+    </item>
+    <item id="6a103f6ca17140ba87f7e28ef6447ca6" cid="PROP003" type="property" name="cedula" owner="51eeeb22a6594a3ea314ffbd5c2afd0e" creator="" creation-date="12/03/2025 08:05:05" visibility="protected">
+      <structural-feature type="Integer" type-id="Uml.Integer" />
+    </item>
+  </items>
+  <models>
+    <model id="pc2ae68bc6d994bcd805d6d346978f98a_806787465" name="Model1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author>Luis Angel Sarmiento Diaz</author>
+        </authors>
+        <description />
+        <creation-date>12/03/2025 08:00:28</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="pf87b217b451946f386bd3190e82e5c79_334515723" name="ClassDiagram1" order-index="1" uid="" name-style="" auto-routed-paths="false" default-line-style="default">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author>Luis Angel Sarmiento Diaz</author>
+          </authors>
+          <description />
+          <creation-date>12/03/2025 08:00:28</creation-date>
+          <change-date>12/03/2025 08:10:30</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="e57ef16abebd4d6aae202f482ba86a6b" cid="PROP010" type="property" name="mensaje" owner="9680fee6d7b9480e890b9be3959f3374" creator="" creation-date="12/03/2025 08:09:34" visibility="private">
+            <structural-feature type="String" type-id="Uml.String" />
+          </item>
+          <item id="2d3904eef0144fa2bc056c4e1818e37f" cid="PROP009" type="property" name="nombre" owner="9680fee6d7b9480e890b9be3959f3374" creator="" creation-date="12/03/2025 08:09:30" visibility="private">
+            <structural-feature type="String" type-id="Uml.String" />
+          </item>
+          <item id="9680fee6d7b9480e890b9be3959f3374" cid="C001" type="class" name="LOGS" creator="" creation-date="12/03/2025 08:00:32">
+            <owned-items />
+            <attributes>
+              <attribute id="a76008844a5084578aced40dc224412d8574" cid="PROP009" name="nombre" creation-date="12/03/2025 08:09:30" property-ref="2d3904eef0144fa2bc056c4e1818e37f" />
+              <attribute id="aca416fcd892a480a83d73d15717baba7380" cid="PROP010" name="mensaje" creation-date="12/03/2025 08:09:34" property-ref="e57ef16abebd4d6aae202f482ba86a6b" />
+            </attributes>
+            <operations>
+              <operation id="ofa9a09aec94642f8a99b7d462917bf38452" cid="OP010" name="constructor" creation-date="12/03/2025 08:09:57" type="String" type-id="Uml.String" visibility="undefined">
+                <parameters>
+                  <parameter id="p96cdd178d6a948fcaaaa58d564cbc38c" name="nombre" type="" type-id="" creation-date="12/03/2025 08:10:04" />
+                  <parameter id="pf9c3087802d74476adc803e9d9ed42a8" name="mensaje" type="" type-id="" creation-date="12/03/2025 08:10:04" />
+                </parameters>
+              </operation>
+              <operation id="o1903129039a444419510047ccb824cef927" cid="OP011" name="registro_logs" creation-date="12/03/2025 08:10:20" type="" type-id="" visibility="undefined" />
+            </operations>
+            <source-codes>
+              <source-code language="ActionScript" />
+            </source-codes>
+          </item>
+          <item id="d884c563029547b390da5aafae54cf29" cid="REL001" type="relationship" name="puede crear" creator="" creation-date="12/03/2025 08:10:30" from="9680fee6d7b9480e890b9be3959f3374" to="51eeeb22a6594a3ea314ffbd5c2afd0e" visibility="package">
+            <relation from="9680fee6d7b9480e890b9be3959f3374" to="51eeeb22a6594a3ea314ffbd5c2afd0e" derived="false">
+              <start-role id="umlar-de47c8a2-248a-429d-bc0d-367bee8a0c78" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
+              <end-role id="umlar-000088ae-1af8-4117-8561-5dd1a34f1a66" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+        </abstract-items>
+        <layer id="887a5167b4a2475cad2ddf2b31e79cdf" name="Default" visible="true" enabled="true" locked="false">
+          <item id="9680fee6d7b9480e890b9be3959f3374" iid="28cd2fbce579466eb63cb556f264ff29" show-fields="true" creation-date="12/03/2025 08:00:32" order-index="0" type="entity">
+            <layout ax="192" ay="214.5" awidth="140" aheight="160" x="192" y="214.5" width="140" height="160" />
+            <classifier />
+            <class />
+          </item>
+          <item id="51eeeb22a6594a3ea314ffbd5c2afd0e" iid="b422b2e1b52e4ca28f60cc2bbd6f60ee" show-fields="true" creation-date="12/03/2025 08:00:32" order-index="0" type="entity">
+            <layout ax="614" ay="123" awidth="257" aheight="343" x="614" y="123" width="257" height="160" />
+            <classifier />
+            <class />
+          </item>
+          <item id="d884c563029547b390da5aafae54cf29" iid="cecfd95f6e0e4a0bbad007bf4486e55a" creation-date="12/03/2025 08:10:30" order-index="1" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="332" y1="294" x2="614" y2="294" start-border-pos="0.37421875" end-border-pos="0.8753644314868805" name-position="0,20">
+              <points>
+                <point x="332" y="294" />
+                <point x="614" y="294" />
+              </points>
+            </layout>
+            <relation from="9680fee6d7b9480e890b9be3959f3374" from-iid="28cd2fbce579466eb63cb556f264ff29" to="51eeeb22a6594a3ea314ffbd5c2afd0e" to-iid="b422b2e1b52e4ca28f60cc2bbd6f60ee" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+</sim-project>

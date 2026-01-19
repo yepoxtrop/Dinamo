@@ -1,7 +1,6 @@
 #Carpetas
 REGISTRO_LOGS/
 FIRMAS_USUARIOS/
-Documentacion/
 **/venv/
 **/node_modules/
 **/__pycache__/

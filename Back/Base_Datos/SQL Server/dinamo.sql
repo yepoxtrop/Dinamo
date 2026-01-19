@@ -38,6 +38,15 @@ if OBJECT_ID('usuarios') is null
 	    constraint fk_rol_en_usuarios foreign key(rol_id_fk) references roles(rol_id) -- llave foranea
 	); 
 
+if OBJECT_ID('correos_usados') is null
+	create table correos_usados (
+		correo_usado_id int not null identity(1,1),
+		correo_usado_Valor nvarchar(150) not null,
+		usuario_id_fk int not null,
+		constraint pk_correo_usado primary key(correo_usado_id),
+		constraint fk_usuario_en_correo_usado foreign key(usuario_id_fk) references usuarios(usuario_id)
+	);
+
 if OBJECT_ID('acciones') is null
 	create table acciones (
 		accion_id int not null identity(1,1), 
@@ -66,6 +75,13 @@ if OBJECT_ID('acciones_sistema') is null
 	    constraint fk_acciones_en_acciones_sistema foreign key(accion_id_fk) references acciones(accion_id) -- llave foranea
 	);
 
+if OBJECT_ID('tipo_firma') is null
+	create table tipo_firma (
+		tipo_firma_id int not null identity(1,1),
+		tipo_firma_nombre nvarchar(30) not null unique,
+		constraint pk_tipo_firma primary key(tipo_firma_id), -- llave primaria
+	); 
+
 if OBJECT_ID('firmas') is null
 	create table firmas (
 		firma_id int not null identity(1,1),
@@ -77,8 +93,10 @@ if OBJECT_ID('firmas') is null
 		firma_fecha_vencimiento datetime2 not null,
 		firma_estado bit not null,
 	    usuario_id_fk int not null,
+		tipo_firma_id_fk int not null,
 	    constraint pk_firma primary key(firma_id), -- llave primaria
 	    constraint fk_usuario_en_firmas foreign key(usuario_id_fk) references usuarios(usuario_id), -- llave foranea
+		constraint fk_tipo_firma_en_firmas foreign key(tipo_firma_id_fk) references tipo_firma(tipo_firma_id), -- llave foranea
 		constraint check_fecha_vencimiento check(firma_fecha_vencimiento>firma_fecha_creacion),
 		constraint check_fecha_creacion check(firma_fecha_creacion<firma_fecha_vencimiento),
 	);
@@ -91,6 +109,15 @@ if OBJECT_ID('llaves_privadas') is null
 	    constraint pk_llave primary key(llave_id), -- llave primaria
 	    constraint fk_firmas_en_llaves_privadas foreign key(firma_id_fk) references firmas(firma_id) -- llave foranea
 	); 
+
+if OBJECT_ID('contrasenas_firmas') is null
+	create table contrasenas_firmas(
+		contrasena_firma_id int not null identity(1,1),
+		contrasena_firma_valor nvarchar(1000) not null unique,
+		firma_id_fk int not null unique,
+		constraint pk_contrasena_firma primary key(contrasena_firma_id),
+		constraint fk_firma_en_contrasena_firma foreign key(firma_id_fk) references firmas(firma_id)
+	);
 
 if OBJECT_ID('tokens') is null
 	create table tokens (
@@ -132,13 +159,17 @@ go
 // REGISTROS NECESARIOS
 //=============================
 */
-insert into roles(rol_nombre) VALUES
+insert into roles(rol_nombre) values
 	('ADMINISTRADOR'),
 	('TECNICO'),
 	('NORMAL');
 go
 
-insert into acciones(accion_nombre) VALUES
+insert into tipo_firma(tipo_firma_nombre) values
+	('MANUAL'),
+	('MASIVA')
+
+insert into acciones(accion_nombre) values
 	('CREAR FIRMAS'),
 	('FIRMAR DOCUMENTOS'),
 	('GENERAR REPORTE'),
@@ -146,7 +177,7 @@ insert into acciones(accion_nombre) VALUES
 	('ELIMINAR FIRMA');
 go
 
-insert into usuarios(usuario_nombre, usuario_ultima_conexion, rol_id_fk) VALUES
+insert into usuarios(usuario_nombre, usuario_ultima_conexion, rol_id_fk) values
 	('user_firmas','2025-12-25 14:30:00.123' ,1),
 	('soporte', '2025-12-25 14:30:00.123',2);
 go

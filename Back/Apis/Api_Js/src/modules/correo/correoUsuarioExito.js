@@ -196,52 +196,52 @@ export async function correoUsuarioExito(datos) {
             attachments:[
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/Logo-mi.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/Logo-mi.png",
                     cid:"logo_svg"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/logo.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/logo.png",
                     cid:"logo_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/correo.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/correo.png",
                     cid:"correo_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/direccion.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/direccion.png",
                     cid:"direccion_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/telefono.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/telefono.png",
                     cid:"telefono_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/hipervinculo.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/hipervinculo.png",
                     cid:"hipervinculo_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/facebook.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/facebook.png",
                     cid:"facebook_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/youtube.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/youtube.png",
                     cid:"youtube_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/linkedin.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/linkedin.png",
                     cid:"linkedin_footer"
                 },
                 {
                     filename:"",
-                    path:"./src/others/plantillaCorreo/src/img/descripcion.png",
+                    path:"./src/settings/others/plantillaCorreo/src/img/descripcion.png",
                     cid:"descripcion_footer"
                 },
             ]

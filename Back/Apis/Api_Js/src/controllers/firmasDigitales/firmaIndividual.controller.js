@@ -35,6 +35,8 @@ export const firmaIndividualController = async (request, response) => {
         const peticionArchivos = await archivosUsuarioPy(datos, token);
         
         //colocar un condicional respecto al resultado de peticionArchivos
+        //const correoDeUsuario = await correoUsuarioExito(datos);
+        //const correoDeSupervisor = await correoSupervisor(datos);
 
         console.log(peticionArchivos);
         return response.status(200).json({
