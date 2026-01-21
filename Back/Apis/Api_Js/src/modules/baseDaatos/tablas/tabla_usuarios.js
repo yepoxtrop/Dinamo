@@ -1,5 +1,5 @@
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../../settings/consultas_sql/conexion_sql.js";
 
 //Librerias
 import { DataTypes } from "sequelize";
@@ -13,7 +13,7 @@ import { tabla_archivos_firmados } from "./tabla_archivos_firmados.js";
 import { tabla_inicio_sesion } from "./tabla_inicio_sesion.js";
 import { tabla_firmas } from "./tabla_firmas.js";
 
-export const tabla_usuarios = conexion_base_datos.define(
+export const tabla_usuarios = conexionBaseDatos.define(
     'usuarios',
     {
         usuario_id:{

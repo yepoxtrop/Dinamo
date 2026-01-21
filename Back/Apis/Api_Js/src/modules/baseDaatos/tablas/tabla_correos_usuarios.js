@@ -1,10 +1,10 @@
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../../settings/consultas_sql/conexion_sql.js";
 
 //Librerias
 import { DataTypes } from "sequelize"; 
 
-export const tabla_correos_usuarios = conexion_base_datos.define(
+export const tabla_correos_usuarios = conexionBaseDatos.define(
     'correos_usuarios',
     {
         correo_id:{

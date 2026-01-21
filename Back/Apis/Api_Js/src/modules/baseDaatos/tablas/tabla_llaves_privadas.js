@@ -2,9 +2,9 @@
 import { DataTypes } from "sequelize";
 
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../../settings/consultas_sql/conexion_sql.js";
 
-export const tabla_llaves_privadas = conexion_base_datos.define(
+export const tabla_llaves_privadas = conexionBaseDatos.define(
     "llaves_privadas",
     {
         llave_id:{

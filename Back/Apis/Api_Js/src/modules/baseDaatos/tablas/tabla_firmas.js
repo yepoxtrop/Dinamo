@@ -2,13 +2,13 @@
 import { DataTypes } from "sequelize";
 
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../../settings/consultas_sql/conexion_sql.js";
 
 //Modelos Creados
 //--tablas sql
 import { tabla_llaves_privadas } from "./tabla_llaves_privadas.js";
 
-export const tabla_firmas = conexion_base_datos.define(
+export const tabla_firmas = conexionBaseDatos.define(
     'firmas',
     {
         firma_id:{

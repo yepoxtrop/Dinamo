@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors"; 
 
 //Rutas creadas
+//--Inicio de Sesion
+import rutaInicioSesion from "../src/routes/inicioSesion/inicioSesion.route.js";
 //--Firmas
 import rutaFirmaIndividual from "../src/routes/firmasDigitales/firmaIndividual.route.js";
 //import ruta_solicitar_firmas from "../src/routes/solicitar_firmas/solicitar.firmas.route.js"; 
@@ -32,7 +34,9 @@ app.use(cors({
 // app.use("/FIRMAS_ACS",ruta_insertar_firmas); 
 // app.use("/FIRMAS_ACS",ruta_insertar_sistema); 
 // app.use("/FIRMAS_ACS",ruta_tokens); 
+app.use("/Dinamo_Js",rutaInicioSesion);
 app.use("/Dinamo_Js",rutaFirmaIndividual);
+
 
 
 

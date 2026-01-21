@@ -229,11 +229,3 @@ export async function correoSupervisor(datos) {
                 "Error":error}
     }
 }
-
-//Objeto Que Recibe la funcion
-// let datos={
-//     "nombre":"Luis Angel Sarmiento Diaz",
-//     "correo":"sarmientodiazluisangel@gmail.com",
-//     "supervisor":"SIGILFREDO LARA GONZALEZ",
-//     "numero":3218854561
-// }

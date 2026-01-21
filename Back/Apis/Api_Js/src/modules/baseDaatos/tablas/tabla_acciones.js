@@ -1,17 +1,17 @@
-//Librerias
+//Librerias 
 import { DataTypes } from "sequelize";
 
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../settings/consultas_sql/conexion_sql.js";
 
 //Modelos Creados
 //--tablas sql
-import { tabla_usuarios } from "./tabla_usuarios.js";
+import { tabla_acciones_sistema } from "./tabla_acciones_sistema.js";
 
-export const tabla_roles = conexion_base_datos.define(
-    "roles",
+export const tabla_acciones = conexionBaseDatos.define(
+    "acciones",
     {
-        rol_id:{
+        accion_id:{
             type:DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
@@ -29,8 +29,8 @@ export const tabla_roles = conexion_base_datos.define(
     }
 )
 
-tabla_roles.hasMany(tabla_usuarios, {
-    foreignKey:"rol_id_fk"
-})
+tabla_acciones.hasMany(tabla_acciones_sistema,{
+    foreignKey:"accion_id_fk"
+});
 
-tabla_usuarios.belongsTo(tabla_roles);
+tabla_acciones_sistema.belongsTo(tabla_acciones);

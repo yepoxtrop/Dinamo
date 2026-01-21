@@ -1,30 +1,30 @@
 //Configuraciones Creadas
-import { conexion_base_datos } from "../../settings/consultas_sql/conexion_sql.js";
+import { conexionBaseDatos } from "../../../settings/consultas_sql/conexion_sql.js";
 
 //Librerias
 import { DataTypes } from "sequelize";
 
-export const tabla_sistema = conexion_base_datos.define(
-    'acciones_sistema',
+export const tabla_inicio_sesion = conexionBaseDatos.define(
+    'inicio_sesion',
     {
-        sistema_id:{
+        sesion_id:{
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,
         },
-        sistema_fecha:{
+        sesion_fecha:{
             type: DataTypes.DATE,
             allowNull: false, 
         },
-        accion_id_fk:{
-            type: DataTypes.INTEGER,
+        sesion_dispositivo:{
+            type: DataTypes.STRING,
             allowNull: false, 
         },
         usuario_id_fk:{
             type: DataTypes.INTEGER,
             allowNull: false, 
-        },
+        }
     },
     {
         freezeTableName: true,
