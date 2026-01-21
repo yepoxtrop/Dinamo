@@ -1,27 +1,28 @@
-/*
-//====================================
-// CREACION DE LA BASE DE DATOS
-// LA MEJOR BASE DE DATOS
-// DINAMO
-// :V
-//====================================
-*/
+/*========================================================================================================================
+FECHA CREACION: 2026/01/21
+AUTOR         : LUIS ANGEL SARMIENTO DIAZ
+DETALLE       : Script de la base de datos, crea la base de datos, las diferentes tablas y sus respectivas
+				restricciones, y también se insertan los valores por default necesarios para el funcionamiento
+				de ciertos campos
+FECHA MODIFICACION: 2026/01/21
+AUTOR MODIFICACION: LUIS ANGEL SARMIENTO DIAZ
+MODIFICACION      : Se modifica para libere las cuantas cuanso se inactiva los usuarios y se enviar adjuntar 
+					el archivo al correo los archivos
+========================================================================================================================*/
+
+/* CREACION DE BASE DE DATOS */
 if DB_ID('Dinamo') is null
 	begin
 		create database Dinamo;
-		print('Base de datos creada');
+		print('Base de datos DINAMO creada');
 	end
--- drop database Dinamo
+/* drop database Dinamo */
 go
 
 use Dinamo;
 go
 
-/*
-//=============================
-// CREACION DE TABLAS
-//=============================
-*/
+/* CREACION DE TABLAS */
 if OBJECT_ID('roles') is null
 	begin
 		create table roles (

@@ -16,5 +16,7 @@ export const consultadrUsuarioDominio = async (datos) =>{
             attributes: dominio_atributos.split(","),
         }
     );
+
+    console.log(consulta);
     return consulta.searchEntries;
 };
