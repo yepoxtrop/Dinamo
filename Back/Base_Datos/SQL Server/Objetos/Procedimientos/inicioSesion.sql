@@ -15,14 +15,14 @@ go
 
 create procedure sp_inicio_sesion 
 	@usuario nvarchar(45), 
-    @nombre_usuario nvarchar(300),
-	@fecha_sesion datetime2,
-    @dispositivo nvarchar(50),
-	@resultado int output, 
-	@resultado_bool bit output
+    @nombre_usuario nvarchar(300), 
+	@fecha_sesion datetime2, 
+    @dispositivo nvarchar(50)
 as
 	begin
         -- Validacion de la existencia del usuario
+            declare  @resultado int;
+
 			if not exists (select *from usuarios where usuario_nombre = @usuario)
 				begin 
 					insert into Dinamo.dbo.usuarios(usuario_nombre) values(@usuario);
@@ -185,25 +185,27 @@ as
                             '</tbody>'+
                         '</table>'
 
-                    exec msdb.dbo.sp_send_dbmail @profile_name = 'Correos Pruebas',
-					@recipients = 'lsarmiento@aciel.co',
-					@subject = 'Correo de Bienvenida - Firmas ACS',
-					@body = @mensaje_html,
-					@body_format = 'HTML'
+
+                    exec msdb.dbo.sp_send_dbmail @profile_name = 'Luis',
+					    @recipients = 'lsarmiento@aciel.co',
+					    @subject = 'Correo de Bienvenida - Firmas ACS',
+					    @body = @mensaje_html,
+					    @body_format = 'HTML'
+
 
 				    print('Usuario creado en la base de datos');
+                    select *from usuarios where usuario_nombre = @usuario;
 				end
 			else
 				select @resultado = usuario_id from usuarios where usuario_nombre = @usuario;
                 insert into Dinamo.dbo.sesiones(sesion_fecha,sesion_dispositivo,usuario_id_fk) values(@fecha_sesion, @dispositivo, @resultado);
                 print('Usuario existente en la base de datos');
+                --select @resultado as resultado; 
+                select *from usuarios where usuario_nombre = @usuario;
 	end
 go
 
 
-declare @resultado int; 
-declare @resultado_bool bit;
-exec sp_inicio_sesion 'soporte', 'soporte', '2026-12-25 14:30:00.1230000', 'ACER', @resultado output, @resultado_bool output;
-select @resultado; 
-go
+
+-- exec sp_inicio_sesion 'johan.rojas', 'Johan Nicolas Rojas Jimenez', '2026-12-25 14:30:00.1230000', 'ACER';
 

@@ -7,29 +7,26 @@ import fs from "fs";
 import path from "path";
 
 //Conifugraciones
-import { llave_privada } from "../../config/tokens/config.tokens.js";
+import { tokensLlavePrivada, tokensAlgoritmo } from "../../settings/tokens/variablesToken.js";
 
-export async function tokens(datos) {
+export const crearToken = async (datos) => {
     try {
         //--Crear el token
         let token = jsonwebtoken.sign(
             {
-                "id_usuario":datos.id_usuario, //traido de la consulta sql
-                "nombreUsuario":datos.usuario, //traido del formulario login
-                "nombre":datos.nombre, //traigo de la ruta con el dominio
+                "idUsuario":datos.usuarioId, //traido de la consulta sql
+                "rolUsuarioId":datos.usuarioIdRol, //traido de la consulta sql
+                "nombreUsuario":datos.usuarioNombre, //traido del formulario login
+                "nombreCompletoUsuario":datos.usuarioNombreCompleto, //traigo de la ruta con el dominio
+                "cedulaUsuario":datos.usuarioCedula, //traido de la consulta sql
             },
-            llave_privada,
+            tokensLlavePrivada,
             {   
-                algorithm: "HS256",
+                algorithm: tokensAlgoritmo,
                 expiresIn: "1h"
             }
         )
-        return {
-            "Mensaje":"Operaciones completadas satisfactoriamente. Token creado",
-            "Estado":true,
-            "Resultado":token,
-            "Error":null,
-        }
+        return token; 
     } catch (error) {
         console.log(error)
         return {

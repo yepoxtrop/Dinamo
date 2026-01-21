@@ -88,16 +88,12 @@ if OBJECT_ID('tokens') is null
 	begin 
 		create table tokens (
 			token_id int not null identity(1,1),
-			token_valor	nvarchar(1000) not null,
+			token_valor	nvarchar(2000) not null,
 			token_duracion varchar(50) not null default '1 hora',
-			token_inicio datetime2 not null, 
-			token_fin datetime2 not null,
 			usuario_id_fk int not null,
 			constraint pk_token primary key(token_id), -- llave primaria
 			constraint fk_usuario_en_tokens foreign key(usuario_id_fk) references usuarios(usuario_id), -- llave foranea
 			constraint check_token_duracion check(token_duracion='1 hora'), -- restriccion check
-			constraint check_token_inicio check(token_inicio<token_fin), -- restriccion check
-			constraint check_token_fin check(token_fin>token_inicio) -- restriccion check
 		);
 		print('Tablas TOKENS creada')
 	end
