@@ -8,7 +8,7 @@ export const spInicioSesion = async (datos) => {
 
     try {
         const consulta = await conexionBaseDatos.query(
-            'exec sp_inicio_sesion @usuario=?, @nombre_usuario=?, @fecha_sesion=?, @dispositivo=?',
+            'exec usp_inicio_sesion @usuarioDominio=?, @nombreCompletoUsuario=?, @fechaInicioSesion=?, @dispositivoSesion=?',
             {
                 replacements:[datos.sAMAccountName, datos.cn, datos.fecha, datos.dispositivo],
                 type: QueryTypes.RAW

@@ -8,7 +8,7 @@ export const spInsertarToken = async (datos) => {
     console.log(datos)
     try {
         const consulta = await conexionBaseDatos.query(
-            'exec sp_insertar_tokens @usuario_id=?, @token_valor=?',
+            'exec usp_insertar_tokens @usuarioId=?, @tokenValor=?',
             {
                 replacements:[datos.usuarioId, datos.tokenValor],
                 type: QueryTypes.RAW

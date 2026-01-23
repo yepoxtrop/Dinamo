@@ -1,15 +1,18 @@
-//Modulos Creados
-//--Tokens
+/*========================================================================================================================
+FECHA CREACION: 2026/01/22
+AUTOR         : LUIS ANGEL SARMIENTO DIAZ
+DETALLE       : Controlador para la creacion de firmas digitales individuales, esto incluye ficheros
+                .key, .pub, .csr, .crt, .p12, con su respectiva carpeta, y adicional con el
+                envio de correos de notificacion al usuario y supervisor
+Modulos       : Tokens, creacion de carpetas, creacion de archivos, procedimientos almacenados y 
+                modulos de node
+FECHA MODIFICACION: 2026/01/22
+AUTOR MODIFICACION: LUIS ANGEL SARMIENTO DIAZ
+MODIFICACION      : Se crea sp
+========================================================================================================================*/
 import { validarToken } from "../../modules/tokens/validarToken.js";
-//--Carpetas y ficheros
-
-
-//--Creacion de archivos
-import { archivoKeys } from "../../modules/archivos/creacion/archivoKeys.js";
-import { archivoCsr } from "../../modules/archivos/creacion/archivoCsr.js";
-import { archivoCrt } from "../../modules/archivos/creacion/archivoCrt.js";
-import { archivoP12 } from "../../modules/archivos/creacion/archivo_p12.js";
-//--Correos
+import { buscarFirmas } from "../../modules/firmasDigitales/carpetas/buscarFirmas.js";
+import { creacionArchivosFirmas } from "../../modules/firmasDigitales/archivos/creacion/crearArchivosFirmas.js";
 import { correoUsuarioExito } from "../../modules/correo/correoUsuarioExito.js";
 import { correoUsuarioFallo } from "../../modules/correo/correoUsuarioFallo.js";
 import { correoSupervisor } from "../../modules/correo/correoSupervisor.js";
@@ -25,16 +28,27 @@ export const firmaIndividualController = async (request, response) => {
             "Mensaje":"Token invalido",
         });
     }else{
-        const peticionCarpetas = await carpetaUsuarioPy(datos, token); 
-        const rutaArchivos = peticionCarpetas.Resultado.Resultado;
-
-        const llavesPrivadas = await archivoKeys(datos, rutaArchivos);
-        const peticionCertificado = await archivoCsr(datos, rutaArchivos);
-        const certificado = await archivoCrt(datos, rutaArchivos);
-        const firmaDigital = await archivoP12(datos, rutaArchivos);
-        const peticionArchivos = await archivosUsuarioPy(datos, token);
+        /* Rutas */
+        const peticionRutaFirmas = await buscarFirmas({ 
+            nombre_usuario: datos.nombre_usuario, 
+            cedula: datos.cedula 
+        }); 
+        console.log(peticionRutaFirmas)
         
-        console.log(peticionArchivos);
+        /* Ficheros */
+        const peticionArchivos = await creacionArchivosFirmas({
+            nombre_usuario: datos.nombre,
+            fechaCreacion: datos.fechaCreacion,
+            contrasena: datos.contrasena,
+            rutaArchivoKey: peticionRutaFirmas.rutaArchivoKey,
+            rutaArchivoPub: peticionRutaFirmas.rutaArchivoPub,
+            rutaArchivoCsr: peticionRutaFirmas.rutaArchivoCsr,
+            rutaArchivoCrt: peticionRutaFirmas.rutaArchivoCrt,
+            rutaArchivoP12: peticionRutaFirmas.rutaArchivoP12
+        });
+
+        console.log(peticionArchivos)
+
         return response.status(200).json({
             "Datos":peticionArchivos,
         });

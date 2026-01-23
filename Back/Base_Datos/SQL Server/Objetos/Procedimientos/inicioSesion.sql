@@ -2,7 +2,7 @@
 FECHA CREACION: 2026/01/22
 AUTOR         : LUIS ANGEL SARMIENTO DIAZ
 DETALLE       : Sp para insertar los tokens creados para las sesiones de un usuario, variables
-				@usuarioId  -> Id del usuario en la tabla usuarios
+				@usuarioDominioId  -> Id del usuario en la tabla usuarios
 				@tokenValor -> Valor del token creado en JS
 FECHA MODIFICACION: 2026/01/22
 AUTOR MODIFICACION: LUIS ANGEL SARMIENTO DIAZ
@@ -26,10 +26,15 @@ create or alter procedure usp_inicio_sesion
     @dispositivoSesion      nvarchar(50)
 as
 	begin
+
+        /* Variables */
+        declare @usuarioId              int;
+        declare @usuarioIdRol           int;
         declare @mensajeEncabezado      nvarchar(MAX);
         declare @mensajeBienvenidaPt1   nvarchar(MAX);
         declare @mensajeBienvenidaPt2   nvarchar(MAX);
         declare @mensajeFirma           nvarchar(MAX);
+        declare @mensajeHtml            nvarchar(MAX);
 
         set @mensajeEncabezado = N'
         <table style="background-color:rgb(0, 168, 195);width:100%;" border="0">
@@ -203,35 +208,52 @@ as
         </table>
         ';
 
-        -- Validacion de la existencia del usuario
-            declare  @resultado int;
+        
+        begin try
+            
+            /* Validar si las variables no esta vacias */
+            if @usuarioDominio is null or @nombreCompletoUsuario  is null or  @fechaInicioSesion  is null or  @dispositivoSesion is null
+                throw 5002, 'Error en las variables, alguna esta vacia', 1; 
 
-			if not exists (select *from usuarios where usuario_nombre = @usuario)
+            /* Validar si el usuario existe  */
+            if not exists (select *from usuarios where usuario_nombre = @usuarioDominio)
 				begin 
-					insert into Dinamo.dbo.usuarios(usuario_nombre) values(@usuario);
-					select @resultado = usuario_id from usuarios where usuario_nombre = @usuario;
-                    insert into Dinamo.dbo.sesiones(sesion_fecha,sesion_dispositivo,usuario_id_fk) values(@fecha_sesion, @dispositivo, @resultado);
 
-                    -- Correo de bienvenida
-					declare @mensaje_html nvarchar(MAX);
-                    set @mensaje_html = 
+                    /* Insertar usuario y sesion */
+					insert into usuarios(usuario_nombre) values(@usuarioDominio);
+                    select @usuarioId = usuario_id, @usuarioIdRol = rol_id_fk from usuarios where usuario_nombre = @usuarioDominio; 
+					insert into sesiones(sesion_fecha,sesion_dispositivo,usuario_id_fk) values(@fechaInicioSesion, @dispositivoSesion, @usuarioId);
 
-                    exec msdb.dbo.sp_send_dbmail @profile_name = 'Luis',
-					    @recipients = 'lsarmiento@aciel.co',
-					    @subject = 'Correo de Bienvenida - Firmas ACS',
-					    @body = @mensaje_html,
-					    @body_format = 'HTML'
+                    /* Enviar correo de bienvenida */
+                    begin try
+                        set @mensajeHtml = CONCAT(@mensajeEncabezado, @mensajeBienvenidaPt1, @nombreCompletoUsuario, @mensajeBienvenidaPt2, @mensajeFirma);
+                        exec msdb.dbo.sp_send_dbmail @profile_name = 'Correos Pruebas',
+					        @recipients = 'lsarmiento@aciel.co',
+					        @subject = 'Correo de Bienvenida - Firmas ACS',
+					        @body = @mensajeHtml,
+					        @body_format = 'HTML'
+                    end try
+                    begin catch
+                        throw 5003, 'Error al enviar el correo', 1; 
+                    end catch
 
-
+                    /* Resultados */
+                    select @usuarioId as usuario_id, @usuarioIdRol as rol_id_fk;
 				    print('Usuario creado en la base de datos');
-                    select *from usuarios where usuario_nombre = @usuario;
 				end
 			else
-				select @resultado = usuario_id from usuarios where usuario_nombre = @usuario;
-                insert into Dinamo.dbo.sesiones(sesion_fecha,sesion_dispositivo,usuario_id_fk) values(@fecha_sesion, @dispositivo, @resultado);
-                print('Usuario existente en la base de datos');
-                --select @resultado as resultado; 
-                select *from usuarios where usuario_nombre = @usuario;
+
+                /* Insertar sesion */
+                select @usuarioId = usuario_id, @usuarioIdRol = rol_id_fk from usuarios where usuario_nombre = @usuarioDominio; 
+				insert into sesiones(sesion_fecha,sesion_dispositivo,usuario_id_fk) values(@fechaInicioSesion, @dispositivoSesion, @usuarioId);
+
+                /* Resultados */
+                select @usuarioId as usuario_id, @usuarioIdRol as rol_id_fk;
+        end try
+        begin catch
+            throw 5001, 'Error en el select o insert de las tablas usaurios o sesiones', 1;
+        end catch
+            
 	end
 go
 
