@@ -4,6 +4,7 @@ import forge from "node-forge";
 /* Modulos node js */
 import path from "path";
 import fs from "fs/promises"; 
+import { Console } from "console";
 
 export const creacionArchivosFirmas = async ({nombre_usuario, fechaCreacion, contrasena, rutaArchivoPub, rutaArchivoKey, rutaArchivoCsr, rutaArchivoCrt, rutaArchivoP12}) => {
     try {
@@ -34,85 +35,95 @@ export const creacionArchivosFirmas = async ({nombre_usuario, fechaCreacion, con
                 encoding:'utf-8',
             }
         );
-
-        /* SOLICITUD DE CERTIFICADO (CSR) */
-        /* Iniciar la solicitud de certificado */
-        let solicitudCertificado = forge.pki.createCertificationRequest();
-
-        /* Configurar la solicitud de certificado */
-        solicitudCertificado.publicKey = clave.publicKey;
-        solicitudCertificado.setSubject([
-            {
-                name: 'commonName', 
-                value: nombre_usuario 
-            },
-            {
-                name: 'countryName', 
-                value: 'CO'
-            },
-            {
-                name: 'stateOrProvinceName',
-                value: 'Cundinamarca'
-            }, 
-            {
-                name: 'localityName', 
-                value: 'Bogotá D.C'
-            },
-            {
-                name: 'organizationName', 
-                value: 'ACS - Aciel Soluciones Integrales S.A.S'
-            },
-        ]);
-
-        /* Firmar la solicitud de certificado */
-        solicitudCertificado.sign(clave.privateKey);
-        
-        /* Convertir la solicitud de certificado a PEM */
-        let solicitudCertificadoPem = forge.pki.certificationRequestToPem(solicitudCertificado);
-        
-        /* Guardar la csr */
-        await fs.writeFile(
-            rutaArchivoCsr, 
-            solicitudCertificadoPem,
-            {
-                encoding:"utf-8"
-            }
-        );
         
         /* CERTIFICADO (CRT) */
         let certificado = forge.pki.createCertificate();
         certificado.publicKey = clave.publicKey;
 
-        // Serial único
+        /* Número de serie */
         const serialBytes = forge.random.getBytesSync(16);
-        certificado.serialNumber = forge.util.bytesToHex(serialBytes).replace(/^0+/, '') || '1';
+        certificado.serialNumber = new forge.jsbn.BigInteger(serialBytes, 256).abs().toString(16);
 
-        certificado.validity.notBefore = new Date(fechaCreacion);
-        certificado.validity.notAfter = new Date(certificado.validity.notBefore);
+        /* Fecha de validez */
+        const fechaCreacion = new Date();
+        certificado.validity.notBefore = fechaCreacion;
+        certificado.validity.notAfter = new Date(fechaCreacion.getTime());
         certificado.validity.notAfter.setMonth(certificado.validity.notAfter.getMonth() + 3);
 
-        certificado.setSubject(solicitudCertificado.subject.attributes);
-        certificado.setIssuer(solicitudCertificado.subject.attributes);
+        /* Atributos del certificado */
+        let atributosCertificado = [{
+          name: 'commonName',
+          value: nombre_usuario
+        }, {
+          name: 'countryName',
+          value: 'CO'
+        }, {
+          name: 'stateOrProvinceName',
+          value: 'Cundinamarca'
+        }, {
+          name: 'localityName',
+          value: 'Bogota D.C'
+        }, {
+          name: 'organizationName',
+          value: 'ACS - Aciel Soluciones Integrales S.A.S'
+        }, {
+          name: 'organizationalUnitName',
+          value: 'Sistemas'
+        }];
 
-        certificado.setExtensions([
-          { name: 'basicConstraints', cA: false },
-          {
-            name: 'keyUsage',
-            digitalSignature: true,
-            nonRepudiation: true,
-            keyEncipherment: true
-          },
-          {
-            name: 'extendedKeyUsage',
-            usage: ['1.3.6.1.4.1.311.10.3.12'] // Document Signing
-          },
-          { name: 'subjectKeyIdentifier' }
+        /* Asignar sujeto e issuer (autofirmado) */
+        certificado.setSubject(atributosCertificado);
+        certificado.setIssuer(atributosCertificado);
+
+        /* Extensiones del certificado */
+        certificado.setExtensions([{
+                name: 'basicConstraints',
+                cA: true
+            }, {
+                name: 'keyUsage',
+                keyCertSign: true,
+                digitalSignature: true,
+                nonRepudiation: true,
+                keyEncipherment: true,
+                dataEncipherment: true
+            }, {
+                name: 'extKeyUsage',
+                serverAuth: true,
+                clientAuth: true,
+                codeSigning: true,
+                emailProtection: true,
+                timeStamping: true
+            }, {
+                name: 'nsCertType',
+                client: true,
+                server: true,
+                email: true,
+                objsign: true,
+                sslCA: true,
+                emailCA: true,
+                objCA: true
+            }, {
+                name: 'subjectAltName',
+                altNames: [{
+                  type: 6, // URI
+                  value: 'http://aciel.co'
+                }, {
+                  type: 7, // IP
+                  ip: '172.16.8.1'
+                }]
+            }, {
+                name: 'subjectKeyIdentifier'
+            }
         ]);
 
+        /* Firmar el certificado con la clave privada */
         certificado.sign(clave.privateKey, forge.md.sha256.create());
 
         /* Convertir el certificado a PEM */
         let certificadoPem = forge.pki.certificateToPem(certificado);
+
+        /* Convertir certificado a X509 DER */
+        let certificadoX509 = forge.pki.certificateToAsn1(certificado);
 
         /* Guardar el crt */
         await fs.writeFile(
