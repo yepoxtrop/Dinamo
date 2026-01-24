@@ -11,6 +11,8 @@
     "dev": "nodemon main.js"
   },
   "dependencies": {
+    "@prisma/adapter-mssql": "^7.3.0",
+    "@prisma/client": "^7.3.0",
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
     "colors": "^1.4.0",
@@ -26,5 +28,10 @@
     "sequelize": "^6.37.7",
     "tedious": "^19.2.0"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "@types/mssql": "^9.1.9",
+    "@types/node": "^25.0.10",
+    "prisma": "^7.3.0"
+  }
 }

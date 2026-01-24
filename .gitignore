@@ -8,3 +8,5 @@ FIRMAS_USUARIOS/
 #Archivos
 **/.env
 MOCKUPS.epgz
+
+/generated/prisma
