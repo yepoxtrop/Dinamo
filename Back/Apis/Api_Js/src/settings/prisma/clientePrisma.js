@@ -1,7 +1,8 @@
 import "dotenv/config";
 import { PrismaMssql } from '@prisma/adapter-mssql';
-import { PrismaClient } from '../generated/prisma/client';
+import pkg from "@prisma/client";
 
+const {PrismaClient} = pkg; 
 import { db_user, db_password, db_host, db_name } from "./variablesPrisma.js";
 
 const sqlConfig = {
@@ -16,7 +17,7 @@ const sqlConfig = {
   },
   options: {
     encrypt: true, // for azure
-    trustServerCertificate: false // change to true for local dev / self-signed certs
+    trustServerCertificate: true // change to true for local dev / self-signed certs
   }
 }
 

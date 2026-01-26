@@ -21,14 +21,6 @@ export const creacionArchivosFirmas = async ({nombre_usuario, fechaCreacion, con
 
         /* Guardar la llave pub */
         await fs.writeFile(
-            rutaArchivoKey,
-            clavePrivadaPem,
-            {
-                encoding:'utf-8',
-            }
-        );
-
-        await fs.writeFile(
             rutaArchivoPub,
             clavePublicaPem,
             {
@@ -155,7 +147,7 @@ export const creacionArchivosFirmas = async ({nombre_usuario, fechaCreacion, con
             Buffer.from(firmaP12, 'binary')
         );        
 
-        return true
+        return clavePrivadaPem;
     } catch (error) {
        return error; 
     }

@@ -14,7 +14,6 @@ export async function validarToken(token){
             token,
             tokensLlavePrivada,
         )
-
         const decodificacion = await decodificarToken(token);
 
         return {

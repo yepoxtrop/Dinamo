@@ -1,6 +1,7 @@
 //Librerias
 import express from "express"; 
 import cors from "cors"; 
+import cookieParser from 'cookie-parser';
 
 //Rutas creadas
 //--Inicio de Sesion
@@ -17,6 +18,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
+app.use(cookieParser()); 
+
 
 /* rRutas */
 app.use("/Dinamo_Js",rutaInicioSesion);
