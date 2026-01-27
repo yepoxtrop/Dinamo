@@ -8,6 +8,9 @@ import cookieParser from 'cookie-parser';
 import rutaInicioSesion from "../src/routes/inicioSesion/inicioSesion.route.js";
 //--Firmas
 import rutaFirmaIndividual from "../src/routes/firmasDigitales/firmaIndividual.route.js";
+// --Documentos
+import rutaFirmarDocumentos from "../src/routes/documentos/firmarDocumentos.route.js"
+import rutaValidarDocumentos from "../src/routes/documentos/validarDocumentos.route.js"
 
 const app = express(); 
 
@@ -25,5 +28,7 @@ app.use(cookieParser());
 /* rRutas */
 app.use("/Dinamo_Js",rutaInicioSesion);
 app.use("/Dinamo_Js",rutaFirmaIndividual);
+app.use("/Dinamo_Js",rutaFirmarDocumentos);
+app.use("/Dinamo_Js",rutaValidarDocumentos);
 
 export default app;

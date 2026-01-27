@@ -10,7 +10,7 @@ export const buscarFirmas = async ({ nombre_usuario, cedula }) => {
     const rutaBase = path.dirname(rutaArchivo);
     const rutaCarpeta = path.join(
       rutaBase,
-      "..", "..", "..", "..", "..", "..", "..",
+      "..", "..", "..", "..", "..", "..", "..", "Docs",
       "FirmasDigitales",
       nombre_usuario
     );
