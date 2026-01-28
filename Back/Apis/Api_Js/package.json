@@ -13,6 +13,7 @@
   "dependencies": {
     "@prisma/adapter-mssql": "^7.3.0",
     "@prisma/client": "^7.3.0",
+    "@signpdf/placeholder-pdfkit010": "^3.3.0",
     "@signpdf/placeholder-plain": "^3.3.0",
     "@signpdf/signer-p12": "^3.3.0",
     "@signpdf/signpdf": "^3.3.0",
