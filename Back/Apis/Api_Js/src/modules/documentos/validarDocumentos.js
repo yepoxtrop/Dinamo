@@ -148,21 +148,6 @@ verificarArchivo({bufferPdf:pdfBuffer})
     console.log(error); 
 }) 
 
-// agregarPlaceholder({bufferPdf:pdfBuffer})
-// .then((res)=>{
-//     firmarPDF({pdfPlaceholder:res,p12Buffer:p12Buffer,p12Contrasena:"111"})
-//     .then((res)=>{
-//         console.log(res)
-//     })
-//     .catch((error)=>{
-//         console.log(error)
-//     })
-// })
-// .catch((error)=>{
-//     console.log(error);
-// })
-
-
 // // 1. Recibir y validar PDF
 // // 2. Guardar temporalmente con nombre único
 // // 3. Leer y modificar PDF con pdf-lib
