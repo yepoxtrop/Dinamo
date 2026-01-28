@@ -86,6 +86,14 @@ export const verificarArchivo = async({bufferPdf}) => {
     }
 }
 
+/* Obtener inforacion de las firmas digitales en los pdf */
+export const obtenerDatosFirmas = async({firmas}) => {
+    try {
+        
+    } catch (error) {
+        throw new Error("Error al gestionar las firmas")
+    }
+}
 
 /* Agregar un placeholder al documento pdf */
 export const agregarPlaceholder = async ({bufferPdf}) =>{
@@ -133,10 +141,11 @@ const pdfBuffer = fs.readFileSync('C:/Users/sarmi/Desktop/PROYECTOS/TRABAJO/ACIE
 
 verificarArchivo({bufferPdf:pdfBuffer})
 .then((res)=>{
-    console.log(res)
+    console.log(res);
+
 })
 .catch((error)=>{
-    console.log(error)
+    console.log(error); 
 }) 
 
 // agregarPlaceholder({bufferPdf:pdfBuffer})
