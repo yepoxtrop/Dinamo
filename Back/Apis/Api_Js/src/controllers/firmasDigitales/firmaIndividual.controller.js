@@ -23,10 +23,6 @@ import { correoSupervisor } from "../../modules/correo/correoSupervisor.js";
 
 export const firmaIndividualController = async (request, response) => {
     const datos = request.body;
-    // const token = request.headers.authorization.split(" ")[1];
-    
-    // const validacionToken = await validarToken(token);
-
     /* Rutas */
     const peticionRutaFirmas = await buscarFirmas({ 
         nombre_usuario: datos.nombre_usuario, 
