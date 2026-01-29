@@ -1,7 +1,6 @@
 /* Modulos */
 import { fileTypeFromFile } from "file-type"; 
 import mime from "mime-types"; 
-import csv from "csv-parser"; 
 import fs from "fs/promises"; 
 import { consultarUsuarioDominioCn } from "../dominio/consultarUsuarioDominio.js"; 
 
@@ -13,8 +12,7 @@ export const validarTipoArchivo = async ({rutaArchivo}) => {
             let peticionTXT = await validarArchivoTXT({pathArchivo:rutaArchivo})
             return peticionTXT; 
         }else if(consultaTipoArchivo === "text/csv"){
-            let peticionTXT = await validarArchivoTXT({pathArchivo:rutaArchivo})
-            return peticionTXT;
+            //fs.createReadStream(rutaArchivo);
         }
         
         return true
@@ -56,14 +54,6 @@ export const validarArchivoTXT = async({pathArchivo}) =>{
         
     }
 }
-
-// export const archivoCSV = async(rutaArchivo) =>{
-//     try {
-        
-//     } catch (error) {
-//         throw new Error(``);
-//     }
-// }
 
 validarTipoArchivo({rutaArchivo: "/home/neo/Desktop/PROYECTS/Dinamo/carguePrueba.csv"})
 .then((res)=>{
