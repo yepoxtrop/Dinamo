@@ -8,25 +8,13 @@ import { consultarUsuarioDominioCn } from "../dominio/consultarUsuarioDominio.js
 export const validarTipoArchivo = async ({rutaArchivo}) => {
     try {
         const consultaTipoArchivo = await mime.lookup(rutaArchivo);
-        
+        console.log(consultaTipoArchivo);
         if (consultaTipoArchivo === "text/plain"){
-            let contenidoArchivo = await fs.readFile(rutaArchivo, 'utf8'); 
-            let listaFilas = contenidoArchivo.split("\n");
-
-            listaFilas.forEach(async(valor, indice)=>{
-                if (indice > 0 ){
-                    try {
-                        let listaUsuario = valor.split(";"); 
-                    let consultaDominio = await consultarUsuarioDominioCn({nombre:listaUsuario[0]}); 
-                    console.log(consultaDominio)
-                    //console.log(listaUsuario)
-                    //let consultaDominio
-                    } catch (error) {
-                        throw new Error("Error")
-                    }
-                }
-                
-            })
+            let peticionTXT = await validarArchivoTXT({pathArchivo:rutaArchivo})
+            return peticionTXT; 
+        }else if(consultaTipoArchivo === "text/csv"){
+            let peticionTXT = await validarArchivoTXT({pathArchivo:rutaArchivo})
+            return peticionTXT;
         }
         
         return true
@@ -35,14 +23,37 @@ export const validarTipoArchivo = async ({rutaArchivo}) => {
     }
 }
 
-export const archivoTXT = async({pathArchivo}) =>{
+export const validarArchivoTXT = async({pathArchivo}) =>{
     try {
-        console.log(pathArchivo)
-        // let contendioArchivo = await fs.readFile(rutaArchivo);
-        // console.log(contendioArchivo)
-        //return contendioArchivo;
+        let contenidoArchivo = await fs.readFile(pathArchivo, 'utf8'); 
+        let listaFilas = contenidoArchivo.split("\n");
+        let listaObjetos = [];
+        for (let i =1; i<listaFilas.length; i++){
+            let subListaDatos = listaFilas[i].split(";");
+            if (subListaDatos.length <5 || subListaDatos.length >5){
+                throw new Error("El archivo no cumple con el formato del documento");
+            }
+            if (isNaN(subListaDatos[3]) || !subListaDatos[4].includes('@')){
+                throw new Error("Campos con datos incorrectos");
+            }
+            
+            let consultaUsuario = await consultarUsuarioDominioCn({nombre:subListaDatos[0]});
+            if (consultaUsuario == []){
+                throw new Error("No se encuentra el usuario en el dominio");
+            }
+            
+            listaObjetos.push({
+                nombreCompleto: consultaUsuario[0].cn,
+                usuarioDominio: consultaUsuario[0].sAMAccountName,
+                area: subListaDatos[1].charAt(0).toUpperCase() + subListaDatos[1].slice(1),
+                supervisor: subListaDatos[2],
+                cedula: subListaDatos[3] != NaN ? subListaDatos[3] : '',
+                correo: subListaDatos[4]
+            });
+        }
+        return listaObjetos; 
     } catch (error) {
-        throw new Error(`Error al procesar el archivo txt:${error.message}`); 
+        
     }
 }
 
@@ -53,3 +64,11 @@ export const archivoTXT = async({pathArchivo}) =>{
 //         throw new Error(``);
 //     }
 // }
+
+validarTipoArchivo({rutaArchivo: "/home/neo/Desktop/PROYECTS/Dinamo/carguePrueba.csv"})
+.then((res)=>{
+    console.log(res)
+})
+.catch((error)=>{
+    console.log(error)
+})
