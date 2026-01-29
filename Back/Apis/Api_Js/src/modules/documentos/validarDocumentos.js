@@ -25,7 +25,7 @@ export const verificarArchivo = async({bufferPdf}) => {
         }
 
         /* Objetos de firmas */
-        let arrayFirmas = []; 
+        let objetoFirmas = []; 
 
         /* Leer el contendio raw del pdf */
         const pdfDoc = await PDFDocument.load(bufferPdf);
@@ -46,94 +46,122 @@ export const verificarArchivo = async({bufferPdf}) => {
         let numeroFirma = 1;
 
         while ((match = regexFirmas.exec(pdfString)) !== null){
-            let firmaProcesada = await procesarFirmas({firmaBinario:match[1]});
+            let firmaProcesada = await procesarFirmas({firmaHexaPura:match[1]});
+            let firmaDigital = {
+                idFirma: firmaProcesada.certificates[0].signatureOid,
+                numeroSerial: firmaProcesada.certificates[0].serialNumber,
+                fechas: firmaProcesada.certificates[0].validity,
+                hash: firmaProcesada.certificates[0].issuer,
+                datos: {
+                    C:firmaProcesada.certificates[0].subject.attributes[0].value,
+                    ST:firmaProcesada.certificates[0].subject.attributes[1].value,
+                    L:firmaProcesada.certificates[0].subject.attributes[2].value,
+                    O:firmaProcesada.certificates[0].subject.attributes[3].value,
+                    OU:firmaProcesada.certificates[0].subject.attributes[4].value,
+                    CN:firmaProcesada.certificates[0].subject.attributes[5].value,
+                    E:firmaProcesada.certificates[0].subject.attributes[6].value
+                }
+
+            }
             /*await fs.writeFileSync("./firmasBinario.txt", firmaProcesada,{encoding:"utf-8", flag:"a"});*/
-            console.log(firmaProcesada);
+            //console.log(firmaProcesada);
+            objetoFirmas.push(firmaDigital)
+            console.log(firmaDigital); 
         }
-
-
-        //     // 
-        //     let p7 = null;
-        //     let longitudUsada = firmaBytes.length;
-
-        //     // Intentar parsear, reduciendo longitud si hay bytes extras
-        //     for (let len = firmaBytes.length; len > 100; len -= 10) {
-        //       try {
-        //         const bytesRecortados = firmaBytes.substring(0, len);
-        //         const asn1 = forge.asn1.fromDer(bytesRecortados);
-        //         p7 = forge.pkcs7.messageFromAsn1(asn1);
-        //         longitudUsada = len;
-        //         break;
-        //       } catch (e) {
-        //         // Continuar intentando con menos bytes
-        //         if (len <= 100) {
-        //           throw new Error('No se pudo parsear la firma PKCS#7');
-        //         }
-        //       }
-        //     }
-
-        //     if (!p7) {
-        //       throw new Error('No se pudo decodificar la firma');
-        //     }
-
-
-        //     console.log(p7)
-        //   }
-        // }
-
         
-        return true;
+        return objetoFirmas;
     } catch (error) {
         throw new Error(`Error al validar el tipo de archivo:${error.message}`);
     }
 }
 
 /* Obtener la información de las firmas digitales encontradas en los pdf */
-export const procesarFirmas = async({firmaBinario}) => {
+export const procesarFirmas = async({firmaHexaPura}) => {
     try {
         /* Modificar el string con el binario de la firma */
-        let firmaHexa = firmaBinario
+        let firmaHexa = firmaHexaPura
         .replace(/\s/g, '')
         .replace(/\n/g, '')
         .replace(/\r/g, '')
         .replace(/[^0-9A-Fa-f]/g, '')
         .toUpperCase();
 
+        if (!/^[0-9A-F]+$/.test(firmaHexa)) {
+            throw new Error('El formato no es hexadecimal válido');
+        }
+
         if (firmaHexa.length % 2 !== 0) {
             firmaHexa = '0' + firmaHexa;
         }
 
-        /* Convertir a bytes */
-        const firmaBytes = forge.util.hexToBytes(firmaHexa);
-        const asn1 = forge.asn1.fromDer(firmaBytes);
+        // Detectar y eliminar padding de ceros al final
+        // El padding PKCS#7 en PDFs suele ser muchos 00 al final
+        let hexSinPadding = firmaHexa;
         
-        // let p7 = null;
-        // let longitudUsada = firmaBytes.length;
+        // Contar cuántos pares de 00 hay al final
+        let paddingCount = 0;
+        for (let i = firmaHexa.length - 2; i >= 0; i -= 2) {
+          if (firmaHexa.substring(i, i + 2) === '00') {
+            paddingCount += 2;
+          } else {
+            break;
+          }
+        }
+    
+    if (paddingCount > 100) {
+      console.log(`⚠️ Detectado padding excesivo: ${paddingCount / 2} bytes de 00`);
+      hexSinPadding = firmaHexa.substring(0, firmaHexa.length - paddingCount);
+      console.log(`Hex sin padding, nueva longitud: ${hexSinPadding.length} chars`);
+    }
+
+    // Convertir hex a bytes
+    const firmaBytes = forge.util.hexToBytes(hexSinPadding);
+    console.log('Bytes totales:', firmaBytes.length);
+    
+    // Verificar que empiece con estructura PKCS#7 válida (0x30 = SEQUENCE)
+    const primerByte = firmaBytes.charCodeAt(0);
+    console.log('Primer byte:', primerByte, '(esperado: 48 = 0x30)');
+    
+    if (primerByte !== 0x30) {
+      throw new Error(`Estructura inválida. Primer byte: ${primerByte}, esperado: 48 (0x30 SEQUENCE)`);
+    }
+
         
-        // /* Intentar parsear, reduciendo longitud si hay bytes extras */ 
-        // for (let len = firmaBytes.length; len > 100; len -= 10) {
-        //   try {
-        //     const bytesRecortados = firmaBytes.substring(0, len);
-        //     const asn1 = forge.asn1.fromDer(bytesRecortados);
-        //     p7 = forge.pkcs7.messageFromAsn1(asn1);
-        //     longitudUsada = len;
-        //     break;
-        //   } catch (e) {
-        //     /* Continuar intentando con menos bytes */
-        //     if (len <= 100) {
-        //       throw new Error('No se pudo parsear la firma PKCS#7');
-        //     }
-        //   }
-        // }
 
-        //console.log(firmaBytes)
-
-        // if (p7 === null ) {
-        //     throw new Error(`No se pudo decodificar la firma:${err}`);
-        // }
+            
+        // Parsear la firma (con manejo de bytes sobrantes)
+        // Parsear la firma con reducción incremental si es necesario
+    let p7 = null;
+    let longitudUsada = firmaBytes.length;
+    let intentos = 0;
+    const maxIntentos = Math.min(50, Math.floor(firmaBytes.length / 10));
+    
+    for (let len = firmaBytes.length; len > 100 && intentos < maxIntentos; len -= 10) {
+      try {
+        const bytesRecortados = firmaBytes.substring(0, len);
+        const asn1 = forge.asn1.fromDer(bytesRecortados);
+        p7 = forge.pkcs7.messageFromAsn1(asn1);
+        
+        longitudUsada = len;
+        console.log(`✅ Firma parseada exitosamente con ${len} bytes (${intentos + 1} intentos)`);
+        break;
+        
+      } catch (e) {
+        intentos++;
+        if (intentos >= maxIntentos || len <= 100) {
+          console.error('❌ Agotados los intentos de parseo');
+          console.error('Último error:', e.message);
+          throw new Error(`No se pudo parsear la firma PKCS#7 después de ${intentos} intentos`);
+        }
+      }
+    }
+    
+    if (p7 === null) {
+      throw new Error('No se pudo decodificar la firma');
+    }
         
 
-        return firmaBytes;
+        return p7;
     } catch (error) {
         throw new Error(`Error al procesar la firma:${error.message}`); 
     }
