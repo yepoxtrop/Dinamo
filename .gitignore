@@ -7,7 +7,8 @@ FIRMAS_USUARIOS/
 
 #Archivos
 **/.env
-MOCKUPS.epgz
+**/buffer.txt
+**/firmasBinario.txt
 
 Docs/
 Documentacion/
