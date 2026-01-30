@@ -6,7 +6,7 @@ import path from "path";
 import fs from "fs/promises"; 
 import { Console } from "console";
 
-export const creacionArchivosFirmas = async ({nombre_usuario, fechaCreacion, contrasena, rutaArchivoPub, rutaArchivoKey, rutaArchivoCsr, rutaArchivoCrt, rutaArchivoP12}) => {
+export const creacionArchivosFirmas = async ({nombre_usuario, contrasena, rutaArchivoPub, rutaArchivoCrt, rutaArchivoP12}) => {
     try {
         /* PAR DE LLAVES(PUB, KEY) */
         /* creación de par de llaves */

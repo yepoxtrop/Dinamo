@@ -1,6 +1,13 @@
+/* Modulos */ 
+import { analizarDocumentoPDF } from "../../modules/analizarDocumentosPDF/analizarDocumentoPDF.js";
+
 export const validarDocumentosController = async(request, response) =>{
     const archivos = request.file; 
-    console.log(archivos)
+    const peticionDocumento = await analizarDocumentoPDF({pathDocumento:archivos.path})
+    console.log(peticionDocumento)
+    response.status(200).json({
+        "Mensaje":"Peticion Recibida"
+    })
 };
 
 // 1. Recibir y validar PDF
