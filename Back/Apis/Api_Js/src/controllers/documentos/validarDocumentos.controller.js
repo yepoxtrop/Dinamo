@@ -8,7 +8,7 @@ export const validarDocumentosController = async(request, response) =>{
     response.status(200).json({
         "Mensaje":"Peticion Recibida"
     })
-};
+}; 
 
 // 1. Recibir y validar PDF
 // 2. Guardar temporalmente con nombre único
