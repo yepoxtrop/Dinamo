@@ -109,8 +109,8 @@ analizarDocumentoPDF({pathDocumento:'Dinamo/Docs/DocumentosFirmas/docPrueba.pdf'
 }
 
 ```
-- **decodificarFirmaHexa:**
-- **obtenerAtributosCert:**
+- **decodificarFirmaHexa:** Esta funcion se encarga de recibir el string hexadecimal que coincide con la expresion regular para capturar las firmas en el documento pdf, la funcion se encargara de de recibir el string, convertirlo a bytes y luego hacer a asn.1 ignorando el padding de 0x00 que hay en la firma, posterior a ello realizara la conversion a pkcs7.
+- **obtenerAtributosCert:** Esta funcion se encarga de recibir una lista que incluye objetos con la informacion de la autoridad certificadora o el firmante, a partir de ello se buscan las etiquetas name, shortName o si no existe ninguna de esas dos pero si una etiqueta llamada extra.
 
 ## 🪪 Base de Datos(Prisma)
 
