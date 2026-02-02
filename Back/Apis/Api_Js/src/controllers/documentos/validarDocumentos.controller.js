@@ -6,7 +6,9 @@ export const validarDocumentosController = async(request, response) =>{
     const peticionDocumento = await analizarDocumentoPDF({pathDocumento:archivos.path})
     console.log(peticionDocumento)
     response.status(200).json({
-        "Mensaje":"Peticion Recibida"
+        "Mensaje":"Peticion Recibida",
+        "Resultado":peticionDocumento
+
     })
 }; 
 

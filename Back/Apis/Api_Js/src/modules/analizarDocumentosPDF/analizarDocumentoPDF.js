@@ -6,6 +6,8 @@ import fs from "fs/promises";
 
 export const analizarDocumentoPDF = async ({pathDocumento}) =>{
     try {
+        const listaFirmas = []; 
+
         /* Expresiones regulares para hallar el rango de bytes y las firmas */
         const regexByteRange = /\/ByteRange\s*\[\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*\]/g;
         const regexFirma = /\/Contents\s*<([0-9A-Fa-f]+)>/g;
@@ -44,11 +46,24 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
             `)
             
             /* Hallar el rango real en asn1 para obtener el certificado */
-            let decodificar = decodificarFirmaHexa(firmaHex)
-            console.log(decodificar)
+            let peticionPkcs7 = decodificarFirmaHexa(firmaHex);
+            console.log('certificado')
+            for (let i = 0; i < peticionPkcs7.certificates.length; i++){
+                console.log('certificado encontrado')
+                console.log(peticionPkcs7.certificates[i])
+                listaFirmas.push({
+                    "version":peticionPkcs7.certificates[i].version,
+                    "serial":peticionPkcs7.certificates[i].serialNumber,
+                    "OidFimra":peticionPkcs7.certificates[i].signatureOid,
+                    "validacion":peticionPkcs7.certificates[i].validity,
+                    "issuer":peticionPkcs7.certificates[i].issuer,
+                    "subject":peticionPkcs7.certificates[i].subject
+                    
+                })
+            }
         }
 
-        return null; 
+        return listaFirmas; 
     } catch (error) {
         throw new Error(`Error al analizar el documentos PDF:${error.message}`); 
     }
@@ -59,21 +74,17 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
 
 const decodificarFirmaHexa = (firmaHexa) => {
   try {
-    // Convertir hex a bytes
+    /* Convertir hex a bytes */
     const firmaBytes = forge.util.hexToBytes(firmaHexa);
     
-    // Crear buffer para lectura
+    /* Crear buffer para lectura */
     const buffer = forge.util.createBuffer(firmaBytes, 'raw');
     
-    // Parsear SOLO la estructura ASN.1 válida (ignora el padding)
+    /* Parsear SOLO la estructura ASN.1 válida (ignora el padding de 0) */ 
     const asn1 = forge.asn1.fromDer(buffer.bytes(), { parseAllBytes: false });
     
-    // Convertir a PKCS#7
+    /* Convertir a PKCS#7 */
     const pkcs7 = forge.pkcs7.messageFromAsn1(asn1);
-    
-    console.log('✓ PKCS#7 parseado correctamente');
-    console.log('Tipo:', pkcs7.type);
-    console.log('Certificados encontrados:', pkcs7.certificates?.length || 0);
     
     return pkcs7;
   } catch (error) {
