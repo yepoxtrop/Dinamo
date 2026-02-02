@@ -3,75 +3,74 @@ import forge from "node-forge";
 
 /* Modulos */ 
 import fs from "fs/promises"; 
+import { error } from "console";
 
 export const analizarDocumentoPDF = async ({pathDocumento}) =>{
     try {
         const listaFirmas = []; 
 
-        /* Expresiones regulares para hallar el rango de bytes y las firmas */
+        /* Expresiones regulares */
         const regexByteRange = /\/ByteRange\s*\[\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*\]/g;
         const regexFirma = /\/Contents\s*<([0-9A-Fa-f]+)>/g;
 
         /* Contenido del pdf */
         let contenidoDocumento = await fs.readFile(pathDocumento);
-        let bufferDocumento = Buffer.from(contenidoDocumento);
-        let bufferToString = bufferDocumento.toString('binary')
+        let bufferToString = contenidoDocumento.toString('binary');
         
-        /* Matchs de las expresiones regulares con el str del buffer */
-        let matchByteRange;
-        let matchFirma;
+        /* Encontrar todos los matches primero */
+        const matchesByteRange = [...bufferToString.matchAll(regexByteRange)];
+        const matchesFirma = [...bufferToString.matchAll(regexFirma)];
         
-        /* Ciclo para hallar las firmas y los rangos */
-        while ((matchFirma = regexFirma.exec(bufferToString)) !== null &&
-        (matchByteRange = regexByteRange.exec(bufferToString)) !== null) {
-
-            /* Contenido de la firma encontrada */
-            let firmaHex = matchFirma[1];
-            
-            /* Rangos de ubicacion de la firma en el pdf */
+        /* Verificar que coincidan */
+        if (matchesByteRange.length !== matchesFirma.length) {
+            console.warn('Advertencia: Cantidad diferente de ByteRanges y Firmas');
+        }
+        
+        /* Procesar cada firma */
+        for (let i = 0; i < Math.min(matchesByteRange.length, matchesFirma.length); i++) {
+            let firmaHex = matchesFirma[i][1];
             let byteRangeEncontrado = [ 
-                Number(matchByteRange[1]),  
-                Number(matchByteRange[2]),  
-                Number(matchByteRange[3]),  
-                Number(matchByteRange[4]),  
+                Number(matchesByteRange[i][1]),  
+                Number(matchesByteRange[i][2]),  
+                Number(matchesByteRange[i][3]),  
+                Number(matchesByteRange[i][4]),  
             ];
-            //fs.writeFile("./buffer.txt", firmaBinaria);
 
-            /* Rango esperado(debe de ser igual a la longitud de la firma) */
-            let rangoEsperado = byteRangeEncontrado[2] - (byteRangeEncontrado[0]+byteRangeEncontrado[1]) -2;
+            let rangoEsperado = byteRangeEncontrado[2] - (byteRangeEncontrado[0] + byteRangeEncontrado[1]) - 2;
             
-            console.log(`Rangos
-            -Rango esperado:${rangoEsperado}
-            -Rango firma hexa:${firmaHex.length/2}    
-            `)
+            console.log(`Firma ${i + 1}:
+            - Rango esperado: ${rangoEsperado}
+            - Rango firma hexa: ${firmaHex.length/2}    
+            `);
             
-            /* Hallar el rango real en asn1 para obtener el certificado */
             let peticionPkcs7 = decodificarFirmaHexa(firmaHex);
-            console.log('certificado')
-            for (let i = 0; i < peticionPkcs7.certificates.length; i++){
-                console.log('certificado encontrado')
-                console.log(peticionPkcs7.certificates[i])
+            
+            if (peticionPkcs7 && peticionPkcs7.certificates && peticionPkcs7.certificates.length > 0) {
+                // Solo agregar el certificado del firmante (el primero)
+                const certFirmante = peticionPkcs7.certificates[0];
+                
                 listaFirmas.push({
-                    "version":peticionPkcs7.certificates[i].version,
-                    "serial":peticionPkcs7.certificates[i].serialNumber,
-                    "OidFimra":peticionPkcs7.certificates[i].signatureOid,
-                    "validacion":peticionPkcs7.certificates[i].validity,
-                    "issuer":peticionPkcs7.certificates[i].issuer,
-                    "subject":peticionPkcs7.certificates[i].subject
-                    
-                })
+                    "numeroFirma": i + 1,
+                    "version": certFirmante.version,
+                    "serial": certFirmante.serialNumber,
+                    "OidFirma": certFirmante.signatureOid,
+                    "validacion": certFirmante.validity,
+                    "issuer": obtenerItems(certFirmante.issuer.attributes),
+                    "subject": obtenerItems(certFirmante.subject.attributes), // Ahora consistente
+                    "totalCertificadosCadena": peticionPkcs7.certificates.length
+                });
             }
         }
-
+        
+        await fs.writeFile('./resultado.txt', JSON.stringify(listaFirmas, null, 2));
         return listaFirmas; 
     } catch (error) {
-        throw new Error(`Error al analizar el documentos PDF:${error.message}`); 
+        throw new Error(`Error al analizar el documento PDF: ${error.message}`); 
     }
 }; 
 
 
-
-
+/* Funciones Esenciales para el funcionamiento del modulo */
 const decodificarFirmaHexa = (firmaHexa) => {
   try {
     /* Convertir hex a bytes */
@@ -91,3 +90,29 @@ const decodificarFirmaHexa = (firmaHexa) => {
     console.error("Error al decodificar firma ASN.1:", error);
   }
 };
+
+const obtenerItems = (listaAtributos) =>{
+    try {
+        let objetoItems = {}
+        for(let i = 0; i<listaAtributos.length; i++){
+            let extra = 1; 
+            if('name' in listaAtributos[i] && 'value' in listaAtributos[i]){
+                let name = listaAtributos[i].name;
+                objetoItems[name] = listaAtributos[i].value;
+            }else if ('shortName' in listaAtributos[i] && 'value' in listaAtributos[i]){
+                let shortName = listaAtributos[i].shortName;
+                objetoItems[shortName] = listaAtributos[i].value;
+            }else if('value' in listaAtributos[i]){
+                let extraName = `extra${extra}`;
+                objetoItems[extraName] = listaAtributos[i].value;
+                extra ++; 
+            }
+            else {
+                throw new Error(`Llaves no encontradas`); 
+            }
+        }
+        return objetoItems; 
+    } catch (error) {
+        throw new Error(`Error al obtener los items:${error.message}`)
+    }
+}

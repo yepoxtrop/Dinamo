@@ -21,7 +21,92 @@ analizarDocumentoPDF({pathDocumento:'Dinamo/Docs/DocumentosFirmas/docPrueba.pdf'
 .catch((err)=>{console.log(err))
 
 //Si todo esta bien la funcion debera de retornarle un objeto de la siguiente forma
-{}
+{
+    "Mensaje": "Peticion Recibida",
+    "Resultado": [
+        {
+            "numeroFirma": 1,
+            "version": 2,
+            "serial": "00",
+            "OidFirma": "1.2.840.113549.1.1.11",
+            "validacion": {
+                "notBefore": "2026-01-30T18:02:20.000Z",
+                "notAfter": "2026-04-30T18:02:20.000Z"
+            },
+            "issuer": {
+                "commonName": "Sigilfredo Lara Gonzalez",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "subject": {
+                "commonName": "Sigilfredo Lara Gonzalez",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "totalCertificadosCadena": 1
+        },
+        {
+            "numeroFirma": 2,
+            "version": 2,
+            "serial": "00",
+            "OidFirma": "1.2.840.113549.1.1.11",
+            "validacion": {
+                "notBefore": "2026-01-30T18:02:19.000Z",
+                "notAfter": "2026-04-30T18:02:19.000Z"
+            },
+            "issuer": {
+                "commonName": "Anderson Ivan Forero Ramírez",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "subject": {
+                "commonName": "Anderson Ivan Forero Ramírez",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "totalCertificadosCadena": 1
+        },
+        {
+            "numeroFirma": 3,
+            "version": 2,
+            "serial": "00",
+            "OidFirma": "1.2.840.113549.1.1.11",
+            "validacion": {
+                "notBefore": "2026-01-30T18:02:20.000Z",
+                "notAfter": "2026-04-30T18:02:20.000Z"
+            },
+            "issuer": {
+                "commonName": "Anyie Lorena Aguirre Aguirre",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "subject": {
+                "commonName": "Anyie Lorena Aguirre Aguirre",
+                "countryName": "CO",
+                "stateOrProvinceName": "Cundinamarca",
+                "localityName": "Bogota D.C",
+                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
+                "organizationalUnitName": "Sistemas"
+            },
+            "totalCertificadosCadena": 1
+        }
+    ]
+}
 
 ```
 - **decodificarFirmaHexa:**

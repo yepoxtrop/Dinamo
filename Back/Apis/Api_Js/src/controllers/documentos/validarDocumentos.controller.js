@@ -4,7 +4,7 @@ import { analizarDocumentoPDF } from "../../modules/analizarDocumentosPDF/analiz
 export const validarDocumentosController = async(request, response) =>{
     const archivos = request.file; 
     const peticionDocumento = await analizarDocumentoPDF({pathDocumento:archivos.path})
-    console.log(peticionDocumento)
+    //console.log(peticionDocumento)
     response.status(200).json({
         "Mensaje":"Peticion Recibida",
         "Resultado":peticionDocumento
