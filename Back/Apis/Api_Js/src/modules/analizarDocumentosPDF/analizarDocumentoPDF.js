@@ -58,12 +58,11 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
                     "issuer": obtenerItems(certFirmante.issuer.attributes),
                     "subject": obtenerItems(certFirmante.subject.attributes), 
                     "totalCertificadosCadena": peticionPkcs7.certificates.length,
-                    "estado": new Date() > certFirmante.validity.notAfter ? 'Vencido' : 'Funcional' 
+                    "estado": validarVencimientoFirma(certFirmante.validity.notBefore, certFirmante.validity.notAfter) 
                 });
             }
         }
         
-        await fs.writeFile('./resultado.txt', JSON.stringify(listaFirmas, null, 2));
         return listaFirmas; 
     } catch (error) {
         throw new Error(`Error al analizar el documento PDF: ${error.message}`); 
@@ -126,7 +125,7 @@ const validarVencimientoFirma = (fechaInicio, fechaFin) => {
             return 'Vencida';
         }
 
-        if (fecha < fechaFin) {
+        if (fecha < fechaInicio) {
             return 'No disponible aún';
         }
 
