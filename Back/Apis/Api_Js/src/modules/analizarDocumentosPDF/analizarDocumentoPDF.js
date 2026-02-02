@@ -53,11 +53,12 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
                     "numeroFirma": i + 1,
                     "version": certFirmante.version,
                     "serial": certFirmante.serialNumber,
-                    "OidFirma": certFirmante.signatureOid,
+                    "oidFirma": certFirmante.signatureOid,
                     "validacion": certFirmante.validity,
                     "issuer": obtenerItems(certFirmante.issuer.attributes),
-                    "subject": obtenerItems(certFirmante.subject.attributes), // Ahora consistente
-                    "totalCertificadosCadena": peticionPkcs7.certificates.length
+                    "subject": obtenerItems(certFirmante.subject.attributes), 
+                    "totalCertificadosCadena": peticionPkcs7.certificates.length,
+                    "estado": new Date() > certFirmante.validity.notAfter ? 'Vencido' : 'Funcional' 
                 });
             }
         }
@@ -114,5 +115,24 @@ const obtenerItems = (listaAtributos) =>{
         return objetoItems; 
     } catch (error) {
         throw new Error(`Error al obtener los items:${error.message}`)
+    }
+}
+
+const validarVencimientoFirma = (fechaInicio, fechaFin) => {
+    try {
+        let fecha = new Date()
+
+        if (fecha > fechaFin) {
+            return 'Vencida';
+        }
+
+        if (fecha < fechaFin) {
+            return 'No disponible aún';
+        }
+
+        return 'Disponible'
+
+    } catch (error) {
+        throw new Error(`Problema al validar fechas:${error.message}`);
     }
 }
