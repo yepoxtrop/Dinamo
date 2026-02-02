@@ -51,14 +51,14 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
                 
                 listaFirmas.push({
                     "numeroFirma": i + 1,
+                    "totalCertificadosCadena": peticionPkcs7.certificates.length,
                     "version": certFirmante.version,
                     "serial": certFirmante.serialNumber,
                     "oidFirma": certFirmante.signatureOid,
                     "validacion": certFirmante.validity,
-                    "issuer": obtenerItems(certFirmante.issuer.attributes),
-                    "subject": obtenerItems(certFirmante.subject.attributes), 
-                    "totalCertificadosCadena": peticionPkcs7.certificates.length,
-                    "estado": validarVencimientoFirma(certFirmante.validity.notBefore, certFirmante.validity.notAfter) 
+                    "estado": validarVencimientoFirma(certFirmante.validity.notBefore, certFirmante.validity.notAfter),
+                    "editor": obtenerItems(certFirmante.issuer.attributes),
+                    "sujeto": obtenerItems(certFirmante.subject.attributes), 
                 });
             }
         }
