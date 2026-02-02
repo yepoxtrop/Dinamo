@@ -10,7 +10,7 @@ Caracteristicas generales de los modulos existentes:
 El modulo que se encarga de **analizar documentos pdf** tanto para verificar su estado y generar su respectivo reporte o para validar el documento antes de ser firmado.\
 El modulo lo encuentra en el siguiente fichero `Dinamo\Back\Apis\Api_Js\src\modules\analizarDocumentosPDF\analizarDocumentoPDF.js`, dentro del mismo encontrara las siguientes funciones:
 - **analizarDocumentoPDF:** Es la función principal del modulo, y es la que unicamente se puede exportar para ser usada en otras partes del código. El modulo únicmanete recibe un solo parametro que es `pathDocumento`
-```
+```javascript
 console.log('')
 
 ```
