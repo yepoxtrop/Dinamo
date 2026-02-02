@@ -38,10 +38,10 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
 
             let rangoEsperado = byteRangeEncontrado[2] - (byteRangeEncontrado[0] + byteRangeEncontrado[1]) - 2;
             
-            console.log(`Firma ${i + 1}:
-            - Rango esperado: ${rangoEsperado}
-            - Rango firma hexa: ${firmaHex.length/2}    
-            `);
+            // console.log(`Firma ${i + 1}:
+            // - Rango esperado: ${rangoEsperado}
+            // - Rango firma hexa: ${firmaHex.length/2}    
+            // `);
             
             let peticionPkcs7 = decodificarFirmaHexa(firmaHex);
             

@@ -27,90 +27,110 @@ analizarDocumentoPDF({pathDocumento:'Dinamo/Docs/DocumentosFirmas/docPrueba.pdf'
         {
             "numeroFirma": 1,
             "version": 2,
-            "serial": "00",
-            "OidFirma": "1.2.840.113549.1.1.11",
+            "serial": "7c1b5e53263c6cb8",
+            "oidFirma": "1.2.840.113549.1.1.11",
             "validacion": {
-                "notBefore": "2026-01-30T18:02:20.000Z",
-                "notAfter": "2026-04-30T18:02:20.000Z"
+                "notBefore": "2025-01-13T16:06:00.000Z",
+                "notAfter": "2027-01-13T16:06:00.000Z"
             },
             "issuer": {
-                "commonName": "Sigilfredo Lara Gonzalez",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "countryName": "ES",
+                "localityName": "Barcelona (see current address at www.uanataca.com/address)",
+                "organizationName": "UANATACA S.A.",
+                "organizationalUnitName": "TSP-UANATACA",
+                "commonName": "UANATACA CA2 2016",
+                "extra1": "VATES-A66721499"
             },
             "subject": {
-                "commonName": "Sigilfredo Lara Gonzalez",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "countryName": "EC",
+                "surname": "ZAPATIER GAMARRA",
+                "givenName": "VIANCA VERONA",
+                "serialNumber": "IDCEC-1204467029",
+                "commonName": "VIANCA VERONA ZAPATIER GAMARRA"
             },
-            "totalCertificadosCadena": 1
+            "totalCertificadosCadena": 1,
+            "estado": "Disponible"
         },
         {
             "numeroFirma": 2,
             "version": 2,
-            "serial": "00",
-            "OidFirma": "1.2.840.113549.1.1.11",
+            "serial": "4a3dd6a9",
+            "oidFirma": "1.2.840.113549.1.1.11",
             "validacion": {
-                "notBefore": "2026-01-30T18:02:19.000Z",
-                "notAfter": "2026-04-30T18:02:19.000Z"
+                "notBefore": "2024-04-18T16:41:03.000Z",
+                "notAfter": "2025-04-18T16:41:03.000Z"
             },
             "issuer": {
-                "commonName": "Anderson Ivan Forero Ramírez",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "countryName": "EC",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "commonName": "AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA"
             },
             "subject": {
-                "commonName": "Anderson Ivan Forero Ramírez",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "commonName": "PRISCILA ALEXANDRA GUANOLUISA BAQUE",
+                "serialNumber": "0930488697-180424115048",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "countryName": "EC"
             },
-            "totalCertificadosCadena": 1
+            "totalCertificadosCadena": 3,
+            "estado": "Vencida"
         },
         {
             "numeroFirma": 3,
             "version": 2,
-            "serial": "00",
-            "OidFirma": "1.2.840.113549.1.1.11",
+            "serial": "169a6dc3",
+            "oidFirma": "1.2.840.113549.1.1.11",
             "validacion": {
-                "notBefore": "2026-01-30T18:02:20.000Z",
-                "notAfter": "2026-04-30T18:02:20.000Z"
+                "notBefore": "2024-01-30T00:10:12.000Z",
+                "notAfter": "2026-01-29T00:10:12.000Z"
             },
             "issuer": {
-                "commonName": "Anyie Lorena Aguirre Aguirre",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "countryName": "EC",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "commonName": "AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA"
             },
             "subject": {
-                "commonName": "Anyie Lorena Aguirre Aguirre",
-                "countryName": "CO",
-                "stateOrProvinceName": "Cundinamarca",
-                "localityName": "Bogota D.C",
-                "organizationName": "ACS - Aciel Soluciones Integrales S.A.S",
-                "organizationalUnitName": "Sistemas"
+                "commonName": "ANDRES ALEXANDER LOPEZ MORAN",
+                "serialNumber": "0923994792-290124192001",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "countryName": "EC"
             },
-            "totalCertificadosCadena": 1
+            "totalCertificadosCadena": 3,
+            "estado": "Vencida"
+        },
+        {
+            "numeroFirma": 4,
+            "version": 2,
+            "serial": "41bbd251",
+            "oidFirma": "1.2.840.113549.1.1.11",
+            "validacion": {
+                "notBefore": "2019-10-15T21:20:12.000Z",
+                "notAfter": "2039-10-06T21:20:12.000Z"
+            },
+            "issuer": {
+                "countryName": "EC",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "commonName": "AUTORIDAD DE CERTIFICACION RAIZ CA-2 SECURITY DATA"
+            },
+            "subject": {
+                "countryName": "EC",
+                "organizationName": "SECURITY DATA S.A. 2",
+                "organizationalUnitName": "ENTIDAD DE CERTIFICACION DE INFORMACION",
+                "commonName": "AUTORIDAD DE CERTIFICACION RAIZ CA-2 SECURITY DATA"
+            },
+            "totalCertificadosCadena": 3,
+            "estado": "Disponible"
         }
     ]
 }
-
 ```
 - **decodificarFirmaHexa:** Esta funcion se encarga de recibir el string hexadecimal que coincide con la expresion regular para capturar las firmas en el documento pdf, la funcion se encargara de de recibir el string, convertirlo a bytes y luego hacer a asn.1 ignorando el padding de 0x00 que hay en la firma, posterior a ello realizara la conversion a pkcs7.
 - **obtenerAtributosCert:** Esta funcion se encarga de recibir una lista que incluye objetos con la informacion de la autoridad certificadora o el firmante, a partir de ello se buscan las etiquetas name, shortName o si no existe ninguna de esas dos pero si una etiqueta llamada extra.
+- **validarVencimientoFirma** Esta funcion calcula el estado de la firma segun su fecha de validacion, por ende hay tres estados posibles: `Disponible`, `Vencida`, `No disponible aun`.
 
 ## 🪪 Base de Datos(Prisma)
 
