@@ -3,66 +3,75 @@ import forge from "node-forge";
 
 /* Modulos */ 
 import fs from "fs/promises"; 
-import { error } from "console";
 
-export const analizarDocumentoPDF = async ({pathDocumento}) =>{
+export const analizarDocumentoPDF = async ({arrayArchivos}) =>{
+    const listaFirmas = []; 
+    let totalFirmas = 0; 
+
     try {
-        const listaFirmas = []; 
-
         /* Expresiones regulares */
         const regexByteRange = /\/ByteRange\s*\[\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*\]/g;
         const regexFirma = /\/Contents\s*<([0-9A-Fa-f]+)>/g;
+        
+        /* For para el array de archivos */
+        for (let i = 0; i < arrayArchivos.length; i++) {
 
-        /* Contenido del pdf */
-        let contenidoDocumento = await fs.readFile(pathDocumento);
-        let bufferToString = contenidoDocumento.toString('binary');
+            /* Contenido del pdf */
+            let contenidoDocumento = await fs.readFile(arrayArchivos[i].path);
+            let bufferToString = contenidoDocumento.toString('binary');
+            
+            /* Encontrar todos los matches primero */
+            const matchesByteRange = [...bufferToString.matchAll(regexByteRange)];
+            const matchesFirma = [...bufferToString.matchAll(regexFirma)];
         
-        /* Encontrar todos los matches primero */
-        const matchesByteRange = [...bufferToString.matchAll(regexByteRange)];
-        const matchesFirma = [...bufferToString.matchAll(regexFirma)];
-        
-        /* Verificar que coincidan */
-        if (matchesByteRange.length !== matchesFirma.length) {
-            console.warn('Advertencia: Cantidad diferente de ByteRanges y Firmas');
-        }
-        
-        /* Procesar cada firma */
-        for (let i = 0; i < Math.min(matchesByteRange.length, matchesFirma.length); i++) {
-            let firmaHex = matchesFirma[i][1];
-            let byteRangeEncontrado = [ 
-                Number(matchesByteRange[i][1]),  
-                Number(matchesByteRange[i][2]),  
-                Number(matchesByteRange[i][3]),  
-                Number(matchesByteRange[i][4]),  
-            ];
 
-            let rangoEsperado = byteRangeEncontrado[2] - (byteRangeEncontrado[0] + byteRangeEncontrado[1]) - 2;
-            
-            // console.log(`Firma ${i + 1}:
-            // - Rango esperado: ${rangoEsperado}
-            // - Rango firma hexa: ${firmaHex.length/2}    
-            // `);
-            
-            let peticionPkcs7 = decodificarFirmaHexa(firmaHex);
-            
-            if (peticionPkcs7 && peticionPkcs7.certificates && peticionPkcs7.certificates.length > 0) {
-                // Solo agregar el certificado del firmante (el primero)
-                const certFirmante = peticionPkcs7.certificates[0];
+            /* Verificar que coincidan */
+            if (matchesByteRange.length !== matchesFirma.length) {
+                console.warn('Advertencia: Cantidad diferente de ByteRanges y Firmas');
+            }
+
+            /* Procesar cada firma */
+            for (let j = 0; j < Math.min(matchesByteRange.length, matchesFirma.length); j++) {
+                let firmaHex = matchesFirma[j][1];
+                let byteRangeEncontrado = [ 
+                    Number(matchesByteRange[j][1]),  
+                    Number(matchesByteRange[j][2]),  
+                    Number(matchesByteRange[j][3]),  
+                    Number(matchesByteRange[j][4]),  
+                ];
+
+                let rangoEsperado = byteRangeEncontrado[2] - (byteRangeEncontrado[0] + byteRangeEncontrado[1]) - 2;
+
+                // console.log(`Firma ${i + 1}:
+                // - Rango esperado: ${rangoEsperado}
+                // - Rango firma hexa: ${firmaHex.length/2}    
+                // `);
+
+                let peticionPkcs7 = decodificarFirmaHexa(firmaHex);
+
+                if (peticionPkcs7 && peticionPkcs7.certificates && peticionPkcs7.certificates.length > 0) {
+                    // Solo agregar el certificado del firmante (el primero)
+                    const certFirmante = peticionPkcs7.certificates[0];
+
+                    let objetoCertificado = {
+                        "archivo":arrayArchivos[i].originalname,
+                        "numeroFirma": j + 1,
+                        "totalCertificadosCadena": peticionPkcs7.certificates.length,
+                        "version": certFirmante.version,
+                        "serial": certFirmante.serialNumber,
+                        "oidFirma": certFirmante.signatureOid,
+                        "validacion": certFirmante.validity,
+                        "estado": validarVencimientoFirma(certFirmante.validity.notBefore, certFirmante.validity.notAfter),
+                        "editor": obtenerItems(certFirmante.issuer.attributes),
+                        "sujeto": obtenerItems(certFirmante.subject.attributes), 
+                    }
+
+                    listaFirmas.push(objetoCertificado);
+                }
                 
-                listaFirmas.push({
-                    "numeroFirma": i + 1,
-                    "totalCertificadosCadena": peticionPkcs7.certificates.length,
-                    "version": certFirmante.version,
-                    "serial": certFirmante.serialNumber,
-                    "oidFirma": certFirmante.signatureOid,
-                    "validacion": certFirmante.validity,
-                    "estado": validarVencimientoFirma(certFirmante.validity.notBefore, certFirmante.validity.notAfter),
-                    "editor": obtenerItems(certFirmante.issuer.attributes),
-                    "sujeto": obtenerItems(certFirmante.subject.attributes), 
-                });
+                totalFirmas +=1;
             }
         }
-        
         return listaFirmas; 
     } catch (error) {
         throw new Error(`Error al analizar el documento PDF: ${error.message}`); 
@@ -70,7 +79,7 @@ export const analizarDocumentoPDF = async ({pathDocumento}) =>{
 }; 
 
 
-/* Funciones Esenciales para el funcionamiento del modulo */
+/* Funciones auxiliares para el funcionamiento del modulo */
 const decodificarFirmaHexa = (firmaHexa) => {
   try {
     /* Convertir hex a bytes */

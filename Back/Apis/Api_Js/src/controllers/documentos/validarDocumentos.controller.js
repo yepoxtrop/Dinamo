@@ -3,14 +3,15 @@ import { analizarDocumentoPDF } from "../../modules/analizarDocumentosPDF/analiz
 
 export const validarDocumentosController = async(request, response) =>{
     /* Captutrar archivo */
-    const archivos = request.file; 
+    const archivos = request.files; 
+    //console.log(archivos)
     
     /* Analizar el pdf */
-    const peticionDocumento = await analizarDocumentoPDF({pathDocumento:archivos.path});
+    const peticionDocumento = await analizarDocumentoPDF({arrayArchivos:archivos});
 
+    /* Reportes */
     
 
-    //console.log(peticionDocumento)
     response.status(200).json({
         "Mensaje":"Peticion Recibida",
         "Resultado":peticionDocumento

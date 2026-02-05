@@ -9,6 +9,6 @@ import { midlewareRevisionArchivos } from "../../controllers/midlwareRevisionArc
 
 let router = express.Router();
 
-router.post("/Validar_Documentos", /*midlewareTokens,*/ midlewareRevisionArchivos.single('documento') ,validarDocumentosController);
+router.post("/Validar_Documentos", /*midlewareTokens,*/ midlewareRevisionArchivos.array('documento', 30) ,validarDocumentosController);
 
 export default router;

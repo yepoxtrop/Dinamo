@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     cb(null, rutaDocumentos);
   },
   filename: (req, file, cb) => {
-    cb(null, path.basename(file.originalname).replace(".zip","") + "_" + Date.now() + path.extname(file.originalname));
+    cb(null, path.basename(file.originalname).replace(".pdf","") + "_" + Date.now() + path.extname(file.originalname));
   }
 });
 

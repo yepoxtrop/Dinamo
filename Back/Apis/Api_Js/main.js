@@ -19,6 +19,7 @@ async function main(puerto) {
             let rutaFirmas = path.join(process.cwd(), "..", "..", "..", "Docs", "FirmasDigitales");
             fs.mkdir(rutaFirmas, {recursive:true});  
             let rutaAnalizar = path.join(process.cwd(), "..", "..", "..", "Docs", "AnalizarDocumentos");
+            fs.mkdir(rutaAnalizar, {recursive:true});  
         })
     } catch (error) {
         console.log(`[ALERTA]:${error}`); 
