@@ -1,14 +1,17 @@
-#Carpetas
-REGISTRO_LOGS/
-FIRMAS_USUARIOS/
-**/venv/
-**/node_modules/
-**/__pycache__/
+# Carpetas
+**/node_modules
 
-#Archivos
+
+# Archivos
 **/.env
-**/buffer.txt
-**/firmasBinario.txt
-
-Docs/
-Documentacion/
+**/*.csv
+**/*.txt
+**/*.xlsx
+**/*.pdf
+**/*.jpeg
+**/*.png
+**/docs
+**/reports
+**/uploads
+**/certificates
+/Apis/java-maker-pdf/target/

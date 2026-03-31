@@ -1,0 +1,18 @@
+diff --git a/node_modules/node-forge/lib/x509.js b/node_modules/node-forge/lib/x509.js
+index 99209ff..b8f4b06 100644
+--- a/node_modules/node-forge/lib/x509.js
++++ b/node_modules/node-forge/lib/x509.js
+@@ -518,6 +518,13 @@ pki.RDNAttributesAsArray = function(rdn, md) {
+       obj.type = asn1.derToOid(attr.value[0].value);
+       obj.value = attr.value[1].value;
+       obj.valueTagClass = attr.value[1].type;
++      // Fix: decode UTF8String attributes (e.g. "Peña") - evita "Error al decodificar BER" en Adobe
++      // Ref: https://github.com/digitalbazaar/forge/pull/731
++      if(obj.valueTagClass === asn1.Type.UTF8) {
++        try {
++          obj.value = forge.util.decodeUtf8(obj.value);
++        } catch(e) { /* valor ya está en UTF-8 */ }
++      }
+       // if the OID is known, get its name and short name
+       if(obj.type in oids) {
+         obj.name = oids[obj.type];

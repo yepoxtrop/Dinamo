@@ -1,0 +1,2 @@
+# DESCRIPCION
+Esta pequeña aplicación tiene como objetivo generar tokens de prueba, tenga en cuenta que el archivo .env de la aplicacion debe tener la misma variable que maneja tanto el Api_Py y el Api_Js para que funcione correctamente.
